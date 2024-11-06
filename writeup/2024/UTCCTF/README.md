@@ -33,13 +33,13 @@ As in the challenge description "Note: using _brute-force_ methods on the challe
 
 ![cantreach](https://github.com/user-attachments/assets/29628dd2-dd8c-4f6e-af5e-384c9ee0536b)
 
-I set a breakpoint right after the call for read() to inspect the stack and find the offset to the canary but it didn't stop at our breakpoint... why?
+I set a breakpoint right after the call for **read()** to inspect the stack and find the offset to the canary but it didn't stop at our breakpoint... why?
 
 ![checkforchild](https://github.com/user-attachments/assets/e707b90f-e9e4-46b0-b1f9-c685b5d64cf3)
 
 Because it checks for _process id_. A **child process** has process id of **0** therefore the child process will continue execution but the main process will jump to main+84 and wait for child to return. Then how can we redirect execution in a way that to call **vuln()** with the parent process and hit our breakpoint? With the power of **gdb** ofcourse! 
 
-We have multiple options to bypass the check, we can set the value in **rbp-0x4** to **0** at checktime, or we can just change the next instruction. We can do one of them manually but we'll probably run this binary a few times or we may accidentally hit a wrong button so writing a little gdb script is worth our time.  
+We have multiple options to bypass the check, we can set the value in **rbp-0x4** to **0** at checktime, or we can just change the next instruction. We can them manually but we'll probably run this binary a few times or we may accidentally hit a wrong button so writing a little gdb script is worth our time.  
 
 ![breakinvuln](https://github.com/user-attachments/assets/d21aa783-d8dd-46d6-be00-63547e1b9cad)
 
@@ -47,7 +47,7 @@ As you see we hit the breakpoint right after the **read()** call and if we inspe
 
 ![offset](https://github.com/user-attachments/assets/404f31ac-5ba3-4dce-91e8-324f298e918a)
 
-We have our input at `0x7ffd41c76378` and the canary is at `0x7ffd41c763c0` and most of the time the stack will look something like *canary* + *rbp* + *saved rip* so the saved rip at 16 bytes after the canary. Which you can confirm it with `info frame`. Good, now we need to calculate the offset from saved rip to start of our input. In gdb `p/d  0x7ffd41c763d0 - 0x7ffd41c76378` will show the offset in **decimal**. 
+We have our input at `0x7ffd41c76378` and the canary is at `0x7ffd41c763c0`. Most of the time the stack will look something like *canary* + *rbp* + *saved rip*. So the saved rip is at 16 bytes after the canary. Which you can confirm it with `info frame`. Good, now we need to calculate the offset from saved rip to start of our input. In gdb `p/d  0x7ffd41c763d0 - 0x7ffd41c76378` will show the offset in **decimal**. 
 
 ![offsetcalculate](https://github.com/user-attachments/assets/2988652c-e5af-4772-b864-96bd66575233)
 
@@ -55,12 +55,12 @@ Okay, now what? I want to overwrite 88 bytes after my buffer with the address of
 
 ![rsp](https://github.com/user-attachments/assets/c10677e5-db70-4612-9768-cf1c7244e3e2)
 
-We overwrite the least significant byte of the canary with "B", and when we continue the program received SIGABRT signal because we failed the canary check. But shouldn't it be in a loop? We smashed the stack earlier above in one of the screenshot but the program still ran? Yes and that is because we changed the execution flow of the parent process. We SIGABRT with the parent process so it wasn't able to return from vuln() to main and call fork() again. As long as we don't play with the parent processs, it will keep asking for input even if it's SIGABRT from the canary check.  
+We overwrite the least significant byte of the canary with "B", and when we continue execution the program received SIGABRT signal because we failed the canary check. But shouldn't it be in a loop? We smashed the stack earlier above in one of the screenshot but the program still ran? Yes and that is because we changed the _execution flow_ of the **parent process**. We SIGABRT with the parent process so it wasn't able to return from **vuln()** to **main** and call **fork()** again. As long as we don't play with the parent processs, it will keep asking for input even if it SIGABRTs from the canary check.  
 
 Alright, what was the point of overwriting only a byte into canary again? Think about it. You are running in an infinite loop, and the program that tells you if the canary has corrupted. What if we sent a null byte instead of "B"? Will it SIGABRT again? No, because the canary has this security feature so its least significant byte will be always '\x00'. Okay then, what if we keep sending bytes and try to guess the canary? Oh wait.. what was the hint from the challenge description again? _brute-froce_.
 
 # Your turn!
- Now we know everything to solve this challenge, guess the canary and call win! You should first try this yourself and see if you can call the win. If you don't push yourself now, when/how will you learn? I'll add the binary and my solution, if you have any questions/problem or just to say thanks, message me on discord. Good luck hacker. 
+ Now we know everything to solve this challenge, guess the canary and call win! You should first try this yourself and see if you can write an exploit and get the flag. If you don't push yourself now, when&how will you learn? I'll add the binary and my solution, if you have any questions/problem or just to say thanks, message me on discord (my username is yanscat). Good luck hacker. 
 
 Don't forget to create a "flag.txt" to test it locally.
 
