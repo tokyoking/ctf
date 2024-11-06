@@ -33,7 +33,7 @@ As in the challenge description "Note: using _brute-force_ methods on the challe
 
 ![cantreach](https://github.com/user-attachments/assets/29628dd2-dd8c-4f6e-af5e-384c9ee0536b)
 
-I set a breakpoint right after the call for read() to inspect the stack and find the offset to the canary but it didn't stop at out breakpoint... why?
+I set a breakpoint right after the call for read() to inspect the stack and find the offset to the canary but it didn't stop at our breakpoint... why?
 
 ![checkforchild](https://github.com/user-attachments/assets/e707b90f-e9e4-46b0-b1f9-c685b5d64cf3)
 
