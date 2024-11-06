@@ -5,14 +5,14 @@
 
 The challenge had 58 solves at the end of the ctf and it is worth 436 points!
 
-# Approach
+## Approach
 First we need to take a look at what is available for us with `checksec`. It'll give us a brief idea about the binary and what are we gonna exploit.
 
 ![checksec](https://github.com/user-attachments/assets/56af64c3-db73-413b-8b7c-b12bc2d0068b)
 
 No PIE, so it might be a buffer overflow but there is stack canary. Partial Relro, hmm, maybe we will overwrite a got table. Also not stripped, it will be easier to debug with the symbols. Nice, time to run the binary. 
 
-# Running the binary
+## Running the binary
 
 ![loop](https://github.com/user-attachments/assets/5f00444d-a5e5-4f18-a086-e9f03020c309)
 
@@ -27,7 +27,7 @@ Looking the disassemble of **vuln**, there is **puts()** right after **read()** 
 
 And we get **stack smashing detected**. But wait, the binary didn't exit, only the child process terminated and it fork()ed again! How can we use this? What happens to the **stack canary** when the binary calls **fork()**? Stack canary is a secret value placed on the stack which changes everytime when the program is started, but because it's forking from parent process the stack canary _doesn't_ change! So that means the canary will stay the same as long as you don't hit `Ctrl+c` or terminate the program. Still, how can we use this information to overwrite the buffer to return to **win** from vuln? 
 
-# Thinking about exploit and scripting gdb
+## Thinking about how to exploit and scripting gdb
 
 As in the challenge description "Note: using _brute-force_ methods on the challenge instance is permitted for this challenge." Can we guess the canary with brute-force? What happens if we overwrite only a byte into canary?  
 
