@@ -37,7 +37,7 @@ I set a breakpoint right after the call for read() to inspect the stack and find
 
 ![checkforchild](https://github.com/user-attachments/assets/e707b90f-e9e4-46b0-b1f9-c685b5d64cf3)
 
-Because it checks for _process id_. A child process has process id of 0 therefore the child process will continue execution but the main process will jump to main+84 and wait for child to return. Then how can we redirect execution in a way that we can call **vuln()** with the parent process and hit our breakpoint? With the power of **gdb** ofcourse! 
+Because it checks for _process id_. A child process has process id of 0 therefore the child process will continue execution but the main process will jump to main+84 and wait for child to return. Then how can we redirect execution in a way that to call **vuln()** with the parent process and hit our breakpoint? With the power of **gdb** ofcourse! 
 
 We have multiple options to bypass the check, we can set the value in **rbp-0x4** to 0 at checktime, or we can just change the next instruction. We can do one of them manually but we'll probably run this binary a few times or we may mess it up with hitting wrong buttons so writing a little gdb script is worth our time.  
 
