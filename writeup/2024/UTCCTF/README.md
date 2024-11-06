@@ -6,7 +6,7 @@
 The challenge had 58 solves at the end of the ctf and it is worth 436 points!
 
 ## Approach
-First we need to take a look at what is available for us with `checksec`. It'll give us a brief idea about the binary and what are we gonna exploit.
+First we need to take a look at what is available for us with `checksec`. It'll give us a brief idea about the binary and what are we likely going to exploit.
 
 ![checksec](https://github.com/user-attachments/assets/56af64c3-db73-413b-8b7c-b12bc2d0068b)
 
@@ -20,7 +20,7 @@ We see that it's keep asking for an input. Now looking at the binary in `gdb` wi
 
 ![vulnandwin](https://github.com/user-attachments/assets/125ca499-37e0-4375-8131-bcbcebaed6df)
 
-Looking the disassemble of **vuln**, there is **puts()** right after **read()** call. Chances are it's reading in our input then writing "Yor data was read. Did you get the flag?" to stdout. And also there is probably a win function as in most challenges, so we checked for it. Great, we don't need a shell, we just need to call **win()**. But how do we do it? Canary is right there, we can't just overwrite. Or is it ever about overflowing the buffer? There is only way to check...
+Looking the disassemble of **vuln**, there is **puts()** right after **read()** call. Chances are it's reading in our input then writing "Your data was read. Did you get the flag?" to stdout. And also there is probably a win function as in most challenges, so we checked for it. Great, we don't need a shell, we just need to call **win()**. But how do we do it? Canary is right there, we can't just overwrite. Or is it ever about overflowing the buffer? There is only way to check...
 
 ![stcksmh](https://github.com/user-attachments/assets/f29e13e6-5cce-40f3-904e-5404f6bedc4c)
 
