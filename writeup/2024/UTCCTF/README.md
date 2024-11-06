@@ -59,7 +59,7 @@ We overwrite the least significant byte of the canary with "B", and when we cont
 
 Alright, what was the point of overwriting only a byte into canary again? Think about it. You are running in an infinite loop, and the program that tells you if the canary has corrupted. What if we sent a null byte instead of "B"? Will it SIGABRT again? No, because the canary has this security feature so its least significant byte will be always '\x00'. Okay then, what if we keep sending bytes and try to guess the canary? Oh wait.. what was the hint from the challenge description again? _brute-froce_.
 
-//![Untitled_Project_V4](https://github.com/user-attachments/assets/18a44a1a-c920-4f8c-a9a5-e0975beccd3f)
+![Untitled_Project_V4](https://github.com/user-attachments/assets/18a44a1a-c920-4f8c-a9a5-e0975beccd3f)
 <img src="https://github.com/user-attachments/assets/18a44a1a-c920-4f8c-a9a5-e0975beccd3f", width="50%" height="50%"/>
 
 # Your turn!
