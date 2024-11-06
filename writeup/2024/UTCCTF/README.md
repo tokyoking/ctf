@@ -27,7 +27,7 @@ Looking the disassemble of **vuln**, there is **puts()** right after **read()** 
 
 And we get **stack smashing detected**. But wait, the binary didn't exit, only the child process terminated and it fork()ed again! How can we use this? What happens to the **stack canary** when the binary calls **fork()**? Stack canary is a secret value placed on the stack which changes everytime when the program is started, but because it's forking from parent process the stack canary _doesn't_ change! So that means the canary will stay the same as long as you don't hit `Ctrl+c` or terminate the program. Still, how can we use this information to overwrite the buffer to return to **win** from vuln? 
 
-## Thinking about how to exploit and scripting gdb
+## Thinking about how to exploit and scripting in gdb
 
 As in the challenge description "Note: using _brute-force_ methods on the challenge instance is permitted for this challenge." Can we guess the canary with brute-force? What happens if we overwrite only a byte into canary?  
 
