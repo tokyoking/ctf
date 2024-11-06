@@ -59,10 +59,11 @@ We overwrite the least significant byte of the canary with "B", and when we cont
 
 Alright, what was the point of overwriting only a byte into canary again? Think about it. You are running in an infinite loop, and the program that tells you if the canary has corrupted. What if we sent a null byte instead of "B"? Will it SIGABRT again? No, because the canary has this security feature so its least significant byte will be always '\x00'. Okay then, what if we keep sending bytes and try to guess the canary? Oh wait.. what was the hint from the challenge description again? _brute-froce_.
 
-<img src="https://github.com/user-attachments/assets/18a44a1a-c920-4f8c-a9a5-e0975beccd3f", width="250px" height="250px"/>
 
 # Your turn!
  Now we know everything to solve this challenge, guess the canary and call win! You should first try this yourself and see if you can write an exploit and get the flag. If you don't push yourself now, when&how will you learn? I'll add the binary and my solution, if you have any questions/problem or just to say thanks, message me on discord (my username is yanscat). Good luck hacker. 
+
+![ezgif-3-2dd787b688](https://github.com/user-attachments/assets/7df5fe11-922b-40cd-bc38-f45718db4643)
 
 Don't forget to create a "flag.txt" to test it locally.
 
