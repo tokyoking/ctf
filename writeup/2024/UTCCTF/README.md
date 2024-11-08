@@ -6,7 +6,7 @@
 The challenge had 58 solves at the end of the ctf and it is worth 436 points!
 
 ## Approach
-First we need to take a look at what is available for us with `checksec`. It'll give us a brief idea about the binary and what are we likely going to exploit.
+First we need to take a look at what is available for us with `checksec`. It'll give us a brief idea about the binary and what we are likely going to exploit.
 
 ![checksec](https://github.com/user-attachments/assets/56af64c3-db73-413b-8b7c-b12bc2d0068b)
 
