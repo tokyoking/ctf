@@ -61,7 +61,7 @@ Alright, what was the point of overwriting only a byte into canary again? Think 
 
 
 # Your turn!
- Now we know everything to solve this challenge, guess the canary and call win! You should first try this yourself and see if you can write an exploit and get the flag. If you don't push yourself now, when&how will you learn? I'll add the binary and my solution, if you have any questions/problem or just to say thanks, message me on discord (my username is yanscat). Good luck hacker. 
+ Now we know everything to solve this challenge, guess the canary and call win! You should first try this yourself and see if you can write an exploit and get the flag. If you don't push yourself now, when&how will you learn? I'll add the binary and my solution, if you have any questions/problem or just to say thanks, message me on discord (@yanscat). Good luck hacker. 
 
 ![ezgif-3-2dd787b688](https://github.com/user-attachments/assets/7df5fe11-922b-40cd-bc38-f45718db4643)
 
