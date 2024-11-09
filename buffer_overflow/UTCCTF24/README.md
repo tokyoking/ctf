@@ -1,5 +1,6 @@
 # Catagory: PWN
 ## Description
+### Level: Easy
 
 ![](https://github.com/user-attachments/assets/a173472b-22d7-4ca0-893e-8201c1c39ac7)
 
