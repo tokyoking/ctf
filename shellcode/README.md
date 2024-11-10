@@ -22,7 +22,7 @@ If you disassemble main, you'll see a call for **blacklist** function. As the na
 
 ![blckisr](https://github.com/user-attachments/assets/cc547734-8802-45fa-ae08-964176407fcc)
 
-I wrote a simple assembly just exiting with the error code 404. 
+I wrote a simple assembly calling **exit** with the error code 404. 
 
 ![exit](https://github.com/user-attachments/assets/14670131-cc16-441e-a7ed-56c193f77d2a)
 
