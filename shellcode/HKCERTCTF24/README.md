@@ -4,6 +4,8 @@
 
 ![descriptoon](https://github.com/user-attachments/assets/340cad2d-56ad-4d30-95a4-044895d56838)
 
+Had 35 solves at the end and is worth 300 points. 
+
 ## Approach
 
 Even if we know this is a shellcode challenge from the description, it's still important to check the properties of the binary.
