@@ -14,7 +14,7 @@ Running `checksec` on the chall!
 
 ![binary](https://github.com/user-attachments/assets/a5287302-7a99-4deb-9b40-c8ccf748b1a1)
 
-We see a cool menu, I played with the options for a few minutes then opened up the ghidra to see what's going on.
+We see a cool menu, I played with the options for a few minutes then opened up ghidra to see what's going on.
 
 ![ghdr](https://github.com/user-attachments/assets/e57e046e-d206-4db2-81f1-d7ae6c296792)
 
