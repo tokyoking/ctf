@@ -69,7 +69,7 @@ Again, dereferences but there isn't enough dereference to get *0x420* into **rax
 
 ![compare](https://github.com/user-attachments/assets/82ccace0-317a-4ecf-a788-76c87b9a0a9d)
 
-We can use **%n** in a way so it zero outs **rax** to pass the check but do we know the offset for %n? Yes, if we look at our leak: ( I accidentally nuked the previous gdb, so all the offset is gone. Don't look at back to the `%lx` output shown before to reason about it.)
+We can use **%n** in a way so it zero outs **rax** to pass the check but do we know the offset for %n? Yes, if we look at our leak: ( I accidentally nuked the previous gdb, so all the offset is gone. Don't look at back to the `%lx` output shown before to reason about it. <img src=https://i.pinimg.com/originals/44/bb/23/44bb2390afa1d4d8cc1d2399661399bf.gif width="100px" height="150px">)
 
 ![leak4](https://github.com/user-attachments/assets/5ecbab13-cf3b-474c-80ad-63cc71395367)
 
