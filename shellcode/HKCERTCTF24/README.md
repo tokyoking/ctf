@@ -79,7 +79,7 @@ Before we leave, you can `gcc -nostdlib -static shellcode.s -o shellcode-elf` to
 ![flag](https://github.com/user-attachments/assets/3167bf08-b16b-4006-9121-409b65b28a73)
 
 
-<img src=[https://i.pinimg.com/originals/5d/87/fa/5d87fac506f1a616f64038461e18dc42.gif](https://uk.pinterest.com/pin/215961744626053470/)/>
+<img src=[https://i.pinimg.com/originals/5d/87/fa/5d87fac506f1a616f64038461e18dc42.gif]/>
 and we got a shell!
 
 
