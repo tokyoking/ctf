@@ -34,7 +34,7 @@ Yup, we confirmed it. Snippet is from really cool source for x86 and amd64 instr
 
 ## Thinking about how to bypass the filter
 
-Instead of calling syscall, we can call another instruction that switchs to kernel mode which is **int 0x80**. Its opcode is "cd 80" and bypasses the filter. Also, we can write a self modifying assembly so it would change itself at runtime.
+Instead of calling syscall, we can call another instruction that switchs to kernel mode which is **int 0x80**. Its opcode is **cd 80**, bypasses the filter. Also, we can write a self modifying assembly so it would change itself at runtime.
 
 Both pretty simple to pull off.
 
