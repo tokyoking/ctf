@@ -30,7 +30,7 @@ We see the opcode **0f 05**, its probably for **syscall** instruction.
 
 ![syscall](https://github.com/user-attachments/assets/0eacb93e-b204-4450-a1c4-ec159d829173)
 
-Yup, confirmed it. Snippet is from really cool source for x86 and amd64 instruction references: https://www.felixcloutier.com/x86
+Yup, confirmed it. Snippet is from really cool source for x86 and amd64 instruction references: https://<!--TESTING-->www.felixcloutier.com/x86
 
 ## Thinking about how to bypass the filter
 
