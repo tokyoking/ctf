@@ -40,10 +40,10 @@ Woah! We leaked bunch of stuff. What else we can use instead of `%lx`? I'll try 
 `%x` leaks 4 bytes             
 `%hx` leaks 2 bytes            
 `%hhx` leaks only a byte     
-`%7$x` prints the 7th parameter (on the stack)
-`%s` dereferences a pointer and reads it until null byte
-`%n` dereferences a pointer from the stack and write the number of bytes 'displayed' so far to it 
-`%9c%10$hhn` writes '9' to the dereferenced address of the tenth parameter on the stack 
+`%7$x` prints the 7th parameter (on the stack).
+`%s` dereferences a pointer and reads it until null byte.
+`%n` dereferences a pointer from the stack and write the number of bytes 'displayed' so far to it.
+`%9c%10$hhn` writes '9' to the dereferenced address of the tenth parameter on the stack .
 
 Alright, cool. Let's check what we leaked on the stack with gdb.
 
