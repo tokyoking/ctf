@@ -20,6 +20,8 @@ It asks for shellcode, very straigthforward.
 
 If you disassemble main, you'll see a call for **blacklist** function. As the name suggest our shellcode getting filtered.
 
-![blacklist](https://github.com/user-attachments/assets/82f527b6-64de-48cb-82fe-cee2e7984001)
+![blckisr](https://github.com/user-attachments/assets/cc547734-8802-45fa-ae08-964176407fcc)
+
+
 
 
