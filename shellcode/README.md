@@ -47,17 +47,38 @@ Running *ltrace* on the binary, we'll see that it's calling **mmap**, **memset**
 
 But I should mention that if you want to do a self modifying shellcode, you should make sure that you have write permissions for the address. Otherwise it won't let you modify the memory and SEGFAULT. If we look at the output of ltrace, we'll see that **mprotect** is called with **0x4** flag, meaning that it is only executable. 
 
-We can confirm it with **vmmap** command in gef.
+We can confirm it with `vmmap` command in gef.
 
 ![execute](https://github.com/user-attachments/assets/749cf93c-73a6-405a-8f73-990416e1302d)
 
 One way to overcome this, is to call **mprotect** again with the needed flags. Simple, yet effective. I did both self-modifying and int 0x80 method in my shellcode.
 
-![mprotect](https://github.com/user-attachments/assets/3f0b170f-0675-42e4-a07f-05b5ee610782)
+Okay, I called **mprotect** again and made a self modfying shellcode. Are we done? Turns out no, a few more hills to climb before the flag.
 
-I forget to mention that we are writing to **code** section. So we need to find an alternative way to pass "/bin/bash" argument to **execve**, otherwise it will try to run the opcodes for "/bin/bash" as well and SEGFAULT because of the bad bytes. One can prevent this by changing the rsp (currently pointing to 0 in the challenge) to the stack. 
+![badbyte](https://github.com/user-attachments/assets/9b3d61d7-ec1f-483a-a7fc-d559ba2939a3)
 
-You can `mov rbp, 0x13370000` and `leave` to change the stack, leave is simply doing `mov rsp, rbp` and `pop rbp`.
+You see the bad byte here, it gets incremented at runtime and turn into the opcode for **syscall**.
+
+![bdbytesrnadom](https://github.com/user-attachments/assets/faaebb9c-7685-4292-b681-4da8773accda)
+
+Wait, now we have bad opcodes and random instructions? Why? Because our string is in the **code** section. Meaning that "/bin/bash" will disassemble to its bytes and the opcodes try to match instructions if such opcodes for instructions exist, and if not, the program will terminate with signal SIGILL (illegal instruction). Hence we call them the **bad bytes**. 
+
+How can we prevent our string to be interpreted as opcode? With writing it onto the "stack"! (not sure if this is the correct way to word it)
+
+![rsp](https://github.com/user-attachments/assets/b34a0ccf-91ef-4e48-99fb-366e0aa7f88c)
+
+In the binary, **rsp** is pointing to "0". How can we change it? We can `mov rbp, 0x13370000` so it holds the address and `leave`. This will make stack pointer to point "0x1337000". Because `leave` is just `mov rsp, rbp` and `pop rbp`. 
+
+![stack](https://github.com/user-attachments/assets/bcf38830-bd95-4eff-8412-e699fda5912d)
+
+## Debugging your shellcode
+
+Before we leave, you can `gcc -nostdlib -static shellcode.s -o shellcode-elf` to turn your assembly to an elf object and `objcopy --dump-section .text=shellcode-raw shellcode-elf` to get the raw bytes. To debug add `int3` in your assembly. Also, `hd shellcode-raw` will hexdump it and `strace ./shellcode-elf` to trace your syscalls.
+
+![flag](https://github.com/user-attachments/assets/3167bf08-b16b-4006-9121-409b65b28a73)
+
+
+
 
 
 
