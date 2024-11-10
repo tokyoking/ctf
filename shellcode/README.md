@@ -78,6 +78,7 @@ Before we leave, you can `gcc -nostdlib -static shellcode.s -o shellcode-elf` to
 
 ![flag](https://github.com/user-attachments/assets/3167bf08-b16b-4006-9121-409b65b28a73)
 
+and we got a shell! ~,~
 
 
 
