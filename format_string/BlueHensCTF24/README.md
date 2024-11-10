@@ -14,11 +14,11 @@ Running `checksec` on the chall!
 
 ![binary](https://github.com/user-attachments/assets/a5287302-7a99-4deb-9b40-c8ccf748b1a1)
 
-We see a cool menu, I played with the options for a few minutes then opened up ghidra to see what's going on.
+We see a cool menu, I played with the options for a few minutes then fired up ghidra to see what's going on.
 
 ![ghdr](https://github.com/user-attachments/assets/e57e046e-d206-4db2-81f1-d7ae6c296792)
 
-Looking at the decompiled main and the functions, we'll see that if we change the channel to 6 it'll prompt for a pin.
+Looking at the decompiled main and the functions, we see that if we change the channel to 6 it'll prompt for a pin.
 
 ![pinpop](https://github.com/user-attachments/assets/161f0d91-f11e-42ef-b930-b8451e5a18ff)
 
@@ -28,9 +28,9 @@ And it pops up how many tries left. Cool.
 
 Back with Ghidra again, and looking at the **programming mode** option, it's getting our input from stdin with **fgets()** then printing back to us with **printf()** but without specifying the format. If you don't know about what is format string, and how to exploit it you should check these cool writeups:
 
-https://vickieli.dev/binary%20exploitation/format-string-vulnerabilities/
-https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html
-https://axcheron.github.io/exploit-101-format-strings/
+<p>https://vickieli.dev/binary%20exploitation/format-string-vulnerabilities/
+<p></p>https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html
+<p></p>https://axcheron.github.io/exploit-101-format-strings/
 
 ![leak2](https://github.com/user-attachments/assets/d627aafb-9316-462c-a2ba-5112585db671)
 
