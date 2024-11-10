@@ -39,10 +39,14 @@ Woah! We leaked bunch of stuff. What else we can use instead of `%lx`? I'll try 
 `%lx` leaks 8 bytes           
 `%x` leaks 4 bytes             
 `%hx` leaks 2 bytes            
-`%hhx` leaks only a byte     
+`%hhx` leaks only a byte 
+
 `%7$x` prints the 7th parameter (on the stack).
+
 `%s` dereferences a pointer and reads it until null byte.
+
 `%n` dereferences a pointer from the stack and write the number of bytes 'displayed' so far to it.
+
 `%9c%10$hhn` writes '9' to the dereferenced address of the tenth parameter on the stack .
 
 Alright, cool. Let's check what we leaked on the stack with gdb.
@@ -69,7 +73,7 @@ We can use **%n** in a way so it zero outs **rax** to pass the check but do we k
 
 ![leak4](https://github.com/user-attachments/assets/5ecbab13-cf3b-474c-80ad-63cc71395367)
 
-It is the 12th `%lx` so we need to use `%12$nn` to write into the dereferenced address of the 12th parameter on the stack. If you look at the stack I posted eariler, and count it to the address that we want to use `%n` on, you'll see that it is not the 12th but the 18th parameter! Because printf uses rdi, rsi, rdx, rcx, r8 and r9 to hold the address and the format string! If it's not enough to hold all the format strings, it uses the stack. So, if you're looking for offsets in gdb, don't forget to substract "6". 
+It is the 12th `%lx` so we need to use `%12$nn` to write into the dereferenced address of the 12th parameter on the stack. If you look at the stack I posted eariler, and count it to the address that we want to use `%n` on, you'll see that it is not the 12th but the 18th parameter! Because printf uses **rdi**, **rsi**, **rdx**, **rcx**, **r8** and **r9** to hold the address and the format string! If it's not enough to hold all the format strings, it uses the *stack*. So, if you're looking for offsets in gdb, don't forget to substract "6". 
 
 ![wover](https://github.com/user-attachments/assets/1fc7f201-afa0-4053-94c4-fb6853cb7f3e)
 
