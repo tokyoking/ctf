@@ -44,8 +44,8 @@ Both pretty simple to pull off.
 
 Running *ltrace* on the binary, we'll see that it's calling **mmap**, **memset** and **mprotect** for the address **0x13370000**. Safe to assume this is the address we write into our shellcode. If you don't know ltrace or any of the calls above, *manpages* will be your best friend sooner or later. 
 
-![mprotect](https://github.com/user-attachments/assets/3f0b170f-0675-42e4-a07f-05b5ee610782)
-But I should mention that if you want to do a self modifying shellcode, you should make sure that you have **PROT_WRITE** permission for it. Otherwise it won't let you modify the memory. If we look at the output of ltrace, we'll see that **mprotect** is called with **0x4** flag, meaning that it is only executable. 
+
+But I should mention that if you want to do a self modifying shellcode, you should make sure that you have **PROT_WRITE** permission for it. Otherwise it won't let you modify the memory and SEGFAULT. If we look at the output of ltrace, we'll see that **mprotect** is called with **0x4** flag, meaning that it is only executable. 
 
 We can confirm it with **vmmap** command in gef.
 
@@ -53,6 +53,7 @@ We can confirm it with **vmmap** command in gef.
 
 One way to overcome this, is to call **mprotect** again with the needed flags. Simple, yet effective. I did both self-modifying and int 0x80 method in my shellcode.
 
+![mprotect](https://github.com/user-attachments/assets/3f0b170f-0675-42e4-a07f-05b5ee610782)
 
 
 
