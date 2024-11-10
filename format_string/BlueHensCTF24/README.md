@@ -65,7 +65,7 @@ In ghidra, we see that **pin** is set here in **main()**, and if we look at the 
 
 ![***pin](https://github.com/user-attachments/assets/a512a286-4a59-4bbe-b440-4f20d960adbc)
 
-It is dereferencing a lot but there isn't enough derefences to get *0x420* into **rax**. So its end up comparing an address with out input.
+Again, dereferences but there isn't enough dereference to get *0x420* into **rax**. So its end up comparing an address with our input.
 
 ![compare](https://github.com/user-attachments/assets/82ccace0-317a-4ecf-a788-76c87b9a0a9d)
 
