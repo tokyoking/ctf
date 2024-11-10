@@ -73,7 +73,7 @@ We can use **%n** in a way so it zero outs **rax** to pass the check but do we k
 
 ![leak4](https://github.com/user-attachments/assets/5ecbab13-cf3b-474c-80ad-63cc71395367)
 
-It is the 12th `%lx` so we need to use `%12$nn` to write into the dereferenced address of the 18th parameter on the stack. If you look at the stack I posted eariler, substract `0x7fffffffe450` from `0x7fffffffe3c8` divide it by 8 and add 1 or just count every 8 bytes to the address, you'll see that it's not the 12th but the 18th parameter! Because printf uses **rdi**, **rsi**, **rdx**, **rcx**, **r8** and **r9** to hold the address and the format string! If it's not enough to hold all the format strings, it uses the *stack*. So, if you're looking for offsets in gdb, don't forget to substract "6". 
+It is the 12th `%lx` so we need to use `%12$nn` to write into the dereferenced address of the 18th parameter on the stack. If you look at the stack I posted eariler, substract `0x7fffffffe450` from `0x7fffffffe3c8` divide it by `8` and add `1` or just count every `8 bytes` to the address, you'll see that it's not the 12th but the `18th` parameter! Because printf uses **rdi**, **rsi**, **rdx**, **rcx**, **r8** and **r9** to hold the address and the format string! If it's not enough to hold all the format strings, it uses the *stack*. So, if you're manually calculating the offset in gdb, don't forget to substract `6`. 
 
 ![wover](https://github.com/user-attachments/assets/1fc7f201-afa0-4053-94c4-fb6853cb7f3e)
 
