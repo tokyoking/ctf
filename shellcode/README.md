@@ -45,7 +45,7 @@ Both pretty simple to pull off.
 Running *ltrace* on the binary, we'll see that it's calling **mmap**, **memset** and **mprotect** for the address **0x13370000**. Safe to assume this is the address we write into our shellcode. If you don't know ltrace or any of the calls above, *manpages* will be your best friend sooner or later. 
 
 
-But I should mention that if you want to do a self modifying shellcode, you should make sure that you have **PROT_WRITE** permission for it. Otherwise it won't let you modify the memory and SEGFAULT. If we look at the output of ltrace, we'll see that **mprotect** is called with **0x4** flag, meaning that it is only executable. 
+But I should mention that if you want to do a self modifying shellcode, you should make sure that you have write permissions for the address. Otherwise it won't let you modify the memory and SEGFAULT. If we look at the output of ltrace, we'll see that **mprotect** is called with **0x4** flag, meaning that it is only executable. 
 
 We can confirm it with **vmmap** command in gef.
 
