@@ -55,6 +55,10 @@ One way to overcome this, is to call **mprotect** again with the needed flags. S
 
 ![mprotect](https://github.com/user-attachments/assets/3f0b170f-0675-42e4-a07f-05b5ee610782)
 
+I forget to mention that we are writing to **code** section. So we need to find an alternative way to pass "/bin/bash" argument to **execve**, otherwise it will try to run the opcodes for "/bin/bash" as well and SEGFAULT because of the bad bytes. One can prevent this by changing the rsp (currently pointing to 0 in the challenge) to the stack. 
+
+You can `mov rbp, 0x13370000` and `leave` to change the stack, leave is simply doing `mov rsp, rbp` and `pop rbp`.
+
 
 
 
