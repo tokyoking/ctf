@@ -36,10 +36,10 @@ Back with Ghidra again, and looking at the **programming mode** option, it's get
 
 Woah! We leaked bunch of stuff. What else we can use instead of `%lx`? I'll try speedrun a few things.  
 
-<t>|  `%lx` leaks 8 bytes          |  `%7$x` prints the 7th parameter (on the stack)
-<t>|  `%x` leaks 4 bytes           |  `%s` dereferences a pointer and reads it until null byte
-<p>|  `%hx` leaks 2 bytes          |  `%n` dereferences a pointer from the stack and write the number of bytes 'displayed' so far to it 
-<p>|  `%hhx` leaks only a byte     |  `%9c%10$hhn` writes '9' to the dereferenced address of the tenth parameter on the stack 
+`%lx` leaks 8 bytes\n          |  `%7$x` prints the 7th parameter (on the stack)
+`%x` leaks 4 bytes           |  `%s` dereferences a pointer and reads it until null byte
+`%hx` leaks 2 bytes          |  `%n` dereferences a pointer from the stack and write the number of bytes 'displayed' so far to it 
+`%hhx` leaks only a byte     |  `%9c%10$hhn` writes '9' to the dereferenced address of the tenth parameter on the stack 
 
 Alright, cool. Let's check what we leaked on the stack with gdb.
 
