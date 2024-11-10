@@ -28,18 +28,18 @@ And it pops up how many tries left. Cool.
 
 Back with Ghidra again, and looking at the **programming mode** option, it's getting our input from stdin with **fgets()** then printing back to us with **printf()** but without specifying the format. If you don't know about what is format string, and how to exploit it you should check these cool writeups:
 
-<p>https://vickieli.dev/binary%20exploitation/format-string-vulnerabilities/
-https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html
-<p>https://axcheron.github.io/exploit-101-format-strings/
+<p>https://vickieli.dev/binary%20exploitation/format-string-vulnerabilities/</p>
+<p>https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html</p>
+<p>https://axcheron.github.io/exploit-101-format-strings/</p>
 
 ![leak2](https://github.com/user-attachments/assets/d627aafb-9316-462c-a2ba-5112585db671)
 
 Woah! We leaked bunch of stuff. What else we can use instead of `%lx`? I'll try speedrun a few things.  
 
-`%lx` leaks 8 bytes                `%7$x` prints the 7th parameter (on the stack)
-`%x` leaks 4 bytes                 `%s` dereferences a pointer and reads it until null byte
-`%hx` leaks 2 bytes                `%n` dereferences a pointer from the stack and write the number of bytes 'displayed' so far to it 
-`%hhx` leaks only a byte           `%9c%10$hhn` writes '9' to the dereferenced address of the tenth parameter on the stack 
+|  `%lx` leaks 8 bytes          |  `%7$x` prints the 7th parameter (on the stack)
+|  `%x` leaks 4 bytes           |  `%s` dereferences a pointer and reads it until null byte
+|  `%hx` leaks 2 bytes          |  `%n` dereferences a pointer from the stack and write the number of bytes 'displayed' so far to it 
+|  `%hhx` leaks only a byte     |  `%9c%10$hhn` writes '9' to the dereferenced address of the tenth parameter on the stack 
 
 Alright, cool. Let's check what we leaked on the stack with gdb.
 
