@@ -29,8 +29,8 @@ And it pops up how many tries left. Cool.
 Back with Ghidra again, and looking at the **programming mode** option, it's getting our input from stdin with **fgets()** then printing back to us with **printf()** but without specifying the format. If you don't know about what is format string, and how to exploit it you should check these cool writeups:
 
 <p>https://vickieli.dev/binary%20exploitation/format-string-vulnerabilities/
-<p></p>https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html
-<p></p>https://axcheron.github.io/exploit-101-format-strings/
+https://codearcana.com/posts/2013/05/02/introduction-to-format-string-exploits.html
+<p>https://axcheron.github.io/exploit-101-format-strings/
 
 ![leak2](https://github.com/user-attachments/assets/d627aafb-9316-462c-a2ba-5112585db671)
 
