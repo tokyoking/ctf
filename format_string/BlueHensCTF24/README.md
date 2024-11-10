@@ -82,7 +82,7 @@ And we succesfully overwrite it with "0"! Therefore passed the check!
 ![flag](https://github.com/user-attachments/assets/933b5016-1184-449f-9196-4dad7572da95)
 
 Pretty easy.
-<img src=https://i.pinimg.com/originals/9e/af/4b/9eaf4b0d74e1ed458333bbf7e1fe3fee.gif/>
+<img src=https://i.pinimg.com/originals/9e/af/4b/9eaf4b0d74e1ed458333bbf7e1fe3fee.gif>
 
 
 
