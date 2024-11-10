@@ -58,7 +58,7 @@ Okay, I called **mprotect** again and made a self modfying shellcode. Are we don
 
 ![badbyte](https://github.com/user-attachments/assets/9b3d61d7-ec1f-483a-a7fc-d559ba2939a3)
 
-See the bad byte here? It gets incremented at runtime and turn into the opcode for **syscall**. So far so good.
+See the bad byte here? `ni` and it gets incremented at runtime and turn into the opcode for **syscall**. So far so good.
 
 ![bdbytesrnadom](https://github.com/user-attachments/assets/faaebb9c-7685-4292-b681-4da8773accda)
 
