@@ -26,7 +26,7 @@ I wrote a simple assembly calling **exit** with the error code 404.
 
 ![exit](https://github.com/user-attachments/assets/14670131-cc16-441e-a7ed-56c193f77d2a)
 
-We see the opcode **0f**, its probably for **syscall** instruction. 
+We see the opcode **0f 05**, its probably for **syscall** instruction. 
 
 ![syscall](https://github.com/user-attachments/assets/0eacb93e-b204-4450-a1c4-ec159d829173)
 
