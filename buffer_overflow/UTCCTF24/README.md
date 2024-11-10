@@ -67,7 +67,8 @@ Alright, what was the point of overwriting only a byte into canary again? Think 
 Don't forget to create a "flag.txt" to test it locally.
 
 #![solved](https://github.com/user-attachments/assets/a4ad902d-973f-4cdb-a735-ffb27a8c42bf)
-<img src=https://github.com/user-attachments/assets/a4ad902d-973f-4cdb-a735-ffb27a8c42bf witdh=300px height=200px>
+<img src=https://i.pinimg.com/originals/85/fc/60/85fc60e92e35eee42856d66146034ef4.gif>
+<img src=https://i.pinimg.com/originals/85/fc/60/85fc60e92e35eee42856d66146034ef4.gif>
 <img src=https://i.pinimg.com/originals/85/fc/60/85fc60e92e35eee42856d66146034ef4.gif>
 Good luck hacker.
 
