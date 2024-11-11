@@ -20,7 +20,7 @@ We see that `fs_base` register isn't cleared so we can leak anything we want. Es
 
 ![libcaddr](https://github.com/user-attachments/assets/d2ae80ea-27d4-47a0-a420-c8c2b979bf85)
 
-We can find the address of **libc base** with some offset from **fs_base** then we can do _anything_ we want. We can do a similar approach and jump to **mprotect** with PROT_WRITE flag to do a self-modfying shellcode. But it'd be lame to do the same method again. Instead, I wanted to try so called _one-gadget_ shell. 
+We can find the address of **libc base** with some offset from **fs_base** then we can do _anything_ we want. Including doing a similar approach in shellcode_runner3 and jumping to **mprotect** with PROT_WRITE flag to do a self-modfying shellcode. But it'd be lame to do the same method again. Instead, I wanted to try so called _one-gadget_ shell. 
 
 The great idea is calling **execve("/bin/sh")** with using only one address somewhere in **libc**. Simple to achive as long as we have the base address of libc. We are going to use a tool called _one_gadget_. Here's the github page for the tool and some reading: 
 https://github.com/david942j/one_gadget  
