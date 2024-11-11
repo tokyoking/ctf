@@ -32,7 +32,9 @@ We have 3 options here, last `execve` call looks like the easiest to do. It has 
 
 ![flag](https://github.com/user-attachments/assets/3118cce8-ff3d-42e6-b8ff-1182a1e28ca5)
 
-And we have a shell!
+And we have a shell! (note: the remote server uses a different version of libc, so this won't work in remote. however after few tries we can probably find which libc version is used.)
+
+
 
 
 
