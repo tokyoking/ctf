@@ -28,7 +28,7 @@ https://book.hacktricks.xyz/binary-exploitation/rop-return-oriented-programing/r
 
 ![onegadget](https://github.com/user-attachments/assets/71eb2b96-2117-4d64-b21e-52072bd1bdab)
 
-We have 3 options here, last `execve` call looks like the easiest to do. It has some constraints we need to fullfil. Not a big deal. But you need to create a **fake stack** so the calls in libc works (e.g `push, call...`). 
+We have 3 options here, last `execve` call looks like the easiest to do. It has some constraints we need to fullfil. Not a big deal. But there is a caveat. `rsp` pointing to **0**, you have to create a **fake stack** so the calls in libc works (e.g `push, call...`). 
 
 ![flag](https://github.com/user-attachments/assets/3118cce8-ff3d-42e6-b8ff-1182a1e28ca5)
 
