@@ -34,6 +34,7 @@ We have 3 options here, last `execve` call looks like the easiest to do. It has 
 
 And we have a shell! (note: the remote server uses a different version of libc. we were given a dockerfile and we can use it to find out the libc used in the remote server.)
 
+<img src=https://i.pinimg.com/originals/1c/01/26/1c0126b13860da83846670518505e3de.gif>
 
 
 
