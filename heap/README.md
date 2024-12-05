@@ -1,6 +1,6 @@
 # Notes about glibc heap tcache
 
-im studying https://pwn.college/software-exploitation/dynamic-allocator-misuse/ and most of the screenshots will be from the slides.
+im studying https://pwn.college/software-exploitation/dynamic-allocator-misuse/ and most of the screenshots adn the code will be from pwncollege slides.
 
 allocations small then 1032 bytes = tcache
 
