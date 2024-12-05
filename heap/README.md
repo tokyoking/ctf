@@ -22,7 +22,7 @@ https://github.com/shellphish/how2heap and https://0x434b.dev/overview-of-glibc-
 - House of Fun (Applicable until: < 2.30)
 - Tcache Dup (Applicable until: < 2.29)
 
-### unpatched techniques (at the time of glibc 2.34)
+### unpatched techniques 
 - House of Lore (Applicable until: ?)
 - Safe Unlink (Applicable until: ?)
 - Fastbin Dup (Applicable until: ?)
