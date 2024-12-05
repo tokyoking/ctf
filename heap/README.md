@@ -1,5 +1,7 @@
 # Notes about glibc heap tcache
 
+im studying https://pwn.college/software-exploitation/dynamic-allocator-misuse/ and most of the screenshots will be from the slides.
+
 allocations small then 1032 bytes = tcache
 
 ![tcacheglibcstruct](https://github.com/user-attachments/assets/cf1b98c1-79f2-4684-b173-3eeb80d22088)
@@ -46,7 +48,8 @@ source: https://docs.google.com/presentation/d/1BlapIDslDaWeBPUamdG0i35-yveGvWJH
 
 ![overlappingmetadat](https://github.com/user-attachments/assets/c48add04-ae38-4127-ba13-a9002f505532)
 
-Snippet from Yan's videos:
+a snippet from Yan's videos:
+
 ![overlapexample](https://github.com/user-attachments/assets/92f4de56-3b2c-4b44-8cd6-1286f7d1bc86)
 
 
