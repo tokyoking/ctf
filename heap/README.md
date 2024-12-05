@@ -17,11 +17,8 @@ If you corrupt the key and free a chunk twice, next two mallocs will return the 
 
 ### tcache poisoning
 
-corrupt the next pointer of that last thing that was free()d.
+corrupt the next pointer of the last thing that was free()d.
 
-`
-int main()
-{
                 char stack_buffer[16];
                 unsigned long long *a;
                 unsigned long long *b;
@@ -39,5 +36,4 @@ int main()
                 printf("Stack buffer: %p\n", &stack_buffer);
                 printf("First malloc: %p\n", malloc(16));
                 printf("Second malloc: %p\n", malloc(16));
-}
-`
+                
