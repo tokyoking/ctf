@@ -48,12 +48,13 @@ source: https://docs.google.com/presentation/d/1BlapIDslDaWeBPUamdG0i35-yveGvWJH
 
 ![overlappingmetadat](https://github.com/user-attachments/assets/c48add04-ae38-4127-ba13-a9002f505532)
 
-a snippet from Yan's videos:
+a snippet from Yan's video:
 
 ![overlapexample](https://github.com/user-attachments/assets/92f4de56-3b2c-4b44-8cd6-1286f7d1bc86)
 
 ### The Wilderness
 
 a fake chunk at the end of the heap stores the available space which is called Wilderness
+
 
 
