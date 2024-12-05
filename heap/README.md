@@ -5,6 +5,7 @@ https://github.com/shellphish/how2heap and https://0x434b.dev/overview-of-glibc-
 
 - Malloc hooks have been removed in GLIBC >= 2.34
 - safe-linking mitigation in GLIBC >= 2.32
+- tcache was introduced in GLIBC 2.26
 
 ### patched techniques
 - House of Prime (Applicable until: < 2.4)
