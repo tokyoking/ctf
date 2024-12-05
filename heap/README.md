@@ -43,3 +43,10 @@ corrupt the next pointer of the last thing that was free()d.
 ![chunk](https://github.com/user-attachments/assets/5f6094c8-6730-46a6-be05-697ba2b3b3b2)
 
 source: https://docs.google.com/presentation/d/1BlapIDslDaWeBPUamdG0i35-yveGvWJHZaW_0dan6sU/edit#slide=id.ga6f4d9d74e_1_0
+
+![overlappingmetadat](https://github.com/user-attachments/assets/c48add04-ae38-4127-ba13-a9002f505532)
+
+Snippet from Yan's videos:
+![overlapexample](https://github.com/user-attachments/assets/92f4de56-3b2c-4b44-8cd6-1286f7d1bc86)
+
+
