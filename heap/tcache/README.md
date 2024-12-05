@@ -2,7 +2,7 @@
 
 (https://pwn.college/software-exploitation/dynamic-allocator-misuse/)
 
-most of the screenshots and code will be from **pwncollege** slides and videos. I made this for quick reference and to fresh up my knowledge about tcache before diving into heap ctfs.
+most of the screenshots and code will be from **pwncollege** slides and videos (mostly glibc 2.31). I made this for quick reference and to fresh up my knowledge about tcache before diving into heap ctfs.
 
 allocations small then 1032 bytes = tcache
 
