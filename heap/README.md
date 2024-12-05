@@ -36,4 +36,9 @@ corrupt the next pointer of the last thing that was free()d.
                 printf("Stack buffer: %p\n", &stack_buffer);
                 printf("First malloc: %p\n", malloc(16));
                 printf("Second malloc: %p\n", malloc(16));
-                
+
+### chunks and metadata
+
+![chunk](https://github.com/user-attachments/assets/5f6094c8-6730-46a6-be05-697ba2b3b3b2)
+
+source: https://docs.google.com/presentation/d/1BlapIDslDaWeBPUamdG0i35-yveGvWJHZaW_0dan6sU/edit#slide=id.ga6f4d9d74e_1_0
