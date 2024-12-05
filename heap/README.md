@@ -1,13 +1,13 @@
 # Notes about glibc heap tcache
 
+allocations small then 1032 bytes = tcache
+
 ![tcacheglibcstruct](https://github.com/user-attachments/assets/cf1b98c1-79f2-4684-b173-3eeb80d22088)
 
 (glibc-2.36)
 source: https://elixir.bootlin.com/glibc/glibc-2.36/source/malloc/malloc.c#L3125
 
 source: https://docs.google.com/presentation/d/13NbUlNvj1Rm-Cc_E_Crp678c-mgzCi0BYfzXIzFB3zI/edit?pli=1#slide=id.g47fd1f5b33_0_186
-
-- on allocation `key` is cleared but `next` is not cleared. 
 
 ### Double Free
 - `uintptr_t key` in `tcache_entry` is used for **double free** check.
@@ -17,7 +17,7 @@ If you corrupt the key and free a chunk twice, next two mallocs will return the 
 
 
 ### tcache poisoning
-
+- on allocation `key` is cleared but `next` is not cleared. 
 corrupt the next pointer of the last thing that was free()d.
 
                 char stack_buffer[16];
