@@ -1,7 +1,7 @@
 ## Heap Exploitation Techniques
 
 
-https://0x434b.dev/overview-of-glibc-heap-exploitation-techniques/ is an awesome site for heap exploit techniques. I made this list for quick reference to see if it's patched or not for certain glibc version. You should definetely check the original site for more information about the techniques.
+https://github.com/shellphish/how2heap and https://0x434b.dev/overview-of-glibc-heap-exploitation-techniques/ are awesome sites for heap exploit techniques. I made this list for quick reference to see if it's patched or not for certain glibc version. You should definetely check the original sites for more information about the techniques.
 
 - Malloc hooks have been removed in GLIBC >= 2.34
 - safe-linking mitigation in GLIBC >= 2.32
