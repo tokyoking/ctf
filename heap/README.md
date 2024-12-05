@@ -4,7 +4,8 @@
 
 (glibc-2.36)
 source: https://elixir.bootlin.com/glibc/glibc-2.36/source/malloc/malloc.c#L3125
-a great source: https://docs.google.com/presentation/d/13NbUlNvj1Rm-Cc_E_Crp678c-mgzCi0BYfzXIzFB3zI/edit?pli=1#slide=id.g47fd1f5b33_0_186
+
+source: https://docs.google.com/presentation/d/13NbUlNvj1Rm-Cc_E_Crp678c-mgzCi0BYfzXIzFB3zI/edit?pli=1#slide=id.g47fd1f5b33_0_186
 
 - on allocation `key` is cleared but `next` is not cleared. 
 
