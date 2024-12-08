@@ -2,7 +2,7 @@
 
 ### Challenge
 
-Get the binary, libc and loader from: https://github.com/sajjadium/ctf-archives/blob/main/ctfs/BackdoorCTF/2023/pwn/Baby_Formatter/README.md
+I got the binary, libc and loader from: https://github.com/sajjadium/ctf-archives/blob/main/ctfs/BackdoorCTF/2023/pwn/Baby_Formatter/README.md
 
 Use `pwninit` or `patchelf` to patch the binary. 
 ```
