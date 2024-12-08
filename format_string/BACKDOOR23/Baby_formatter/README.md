@@ -218,7 +218,11 @@ print("shell in 3...")
 p.interactive()
 ```
 
-See? That's why I said automating is important :D
+<img src=https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHlnZGtkaWFpN2ZmZHk4OWl0cnQ4OW5nM3hhZmlyMHZwYXJudnlveCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/u2dI2h52gAzNS/giphy.webp>
+
+See? That's why I said I should automate stuff 🥀
+
+
 
 
 
