@@ -16,7 +16,7 @@ Cool challenge by __@p0ch1ta__, format string exploit with some filtered chars. 
 ### Checksec
 ![checksec](https://github.com/user-attachments/assets/e040f7ec-3a06-41dd-a1b7-aa411c8d9fe5)
 
-### Binary
+### Leaking info
 Btw, they gave us an option to leak an address in libc and in the stack but I didn't take it :P
 
 ![noob](https://github.com/user-attachments/assets/7fc15592-e220-4227-aa85-c327c55cb772)
