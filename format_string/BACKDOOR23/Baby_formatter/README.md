@@ -3,6 +3,7 @@
 ### Challenge
 
 Got the binary, libc and loader from: https://github.com/sajjadium/ctf-archives/blob/main/ctfs/BackdoorCTF/2023/pwn/Baby_Formatter/README.md
+
 Use `pwninit` or `patchelf` to patch the binary. 
 ```
   cp fmt1 fmt1_patched
@@ -20,7 +21,7 @@ Btw, they gave us an option to leak an address in libc and in the stack but I di
 
 ![noob](https://github.com/user-attachments/assets/7fc15592-e220-4227-aa85-c327c55cb772)
 
-Anyway, `p` `u` `d` and `x` is filtered but we can still use `s` and `o` to leak info. Because of `Full RELRO` we can't overwrite got entries, at least in the binary. Maybe we can overwrite a got entry in `libc` because its __Partial RELRO__ but I ended up overwriting _saved rip_ of main with **system("/bin/sh")**.
+Anyway, `%p` `%u` `%d` and `%x` is filtered but we can still use `%s` and `%o` to leak info. Due to `Full RELRO` we can't overwrite the got entries, at least in the binary. Maybe we can overwrite a got entry in `libc` because its __Partial RELRO__ but I ended up overwriting _saved rip_ of main with **system("/bin/sh")**.
 
 ### Local Flag
 
