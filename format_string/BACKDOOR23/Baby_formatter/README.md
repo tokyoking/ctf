@@ -21,7 +21,7 @@ Btw, they gave us an option to leak an address in libc and in the stack but I di
 
 ![noob](https://github.com/user-attachments/assets/7fc15592-e220-4227-aa85-c327c55cb772)
 
-Anyway, `%p` `%u` `%d` and `%x` is filtered but we can still use `%s` and `%o` to leak info. Due to `Full RELRO` we can't overwrite the got entries. Perhaps we can overwrite a got entry in `libc` because it's __Partial RELRO__ but I ended up overwriting _saved rip_ of main with **system("/bin/sh")**.
+Anyway, `%p` `%u` `%d` and `%x` is filtered but we can still use `%s` and `%o` to leak info. Due to `Full RELRO` we can't overwrite the got entries. Perhaps we can overwrite a got entry in `libc` because it's __Partial RELRO__ but I ended up overwriting _saved rip_ of main to call **system("/bin/sh")**.
 
 ### Local Flag
 
