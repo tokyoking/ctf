@@ -41,7 +41,7 @@ Now `chunk 0` is pointing to `AAAAAAAA` instead of pointing to the `next chunk` 
 There are some caveats to fake a chunk and turns out `0x453508` is perfect. It's near got entries and most importantly mallocable. Make sure that `chunk 0 and 1` have *enough size* when we're reading into them to overwrite **free@got**. Which is at least `40 bytes` in this case. 
 
 ```
-4 - Malloc twice so fake chunk gets allocated and points to free@got
+4 - Malloc twice so fake chunk gets allocated and points to near free@got
 ```
 
 ![empty](https://github.com/user-attachments/assets/6ef3a766-c2a5-41ad-b77d-f7ba363b9acb)
