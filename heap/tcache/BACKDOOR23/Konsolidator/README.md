@@ -3,7 +3,8 @@
 ### Challenge
 
 My first heap challenge, thank you @p0ch1ta for this super cool challenge. The intended way is **House of Muney** which is *leaklesss* heap exploit but I cheese'd it with getting a **leak** :)
-more about House of Muney: https://maxwelldulin.com/BlogPost/House-of-Muney-Heap-Exploitation
+
+More about House of Muney: https://maxwelldulin.com/BlogPost/House-of-Muney-Heap-Exploitation
 
 ### Checksec
 
@@ -72,7 +73,7 @@ Now that we have our leak in libc, we can calculate the offset to `libc base` an
 
 ![flaggg](https://github.com/user-attachments/assets/9999e3cf-a772-47a6-a610-841707b260e3)
 
-Getting a shell was quite painful because so I just write out the flag. This was really fun even tho it wasn't intented solution! I think I learned a lot from this and I must include following writeups that inspired me for this solution:
+Getting a shell was quite painful so I just write out the flag. This was really fun even tho it wasn't intented solution! I think I learned a lot from this and I must include following writeups that inspired me for this solution:
 https://www.youtube.com/watch?v=qVLXHNqxpkE (by c0nrad)
 https://github.com/MarcoPellero/writeups/blob/main/backdoor/konsolidator/writeup.md
 
