@@ -16,7 +16,7 @@ More about House of Muney: https://maxwelldulin.com/BlogPost/House-of-Muney-Heap
 
 They give us an obvious vulnerability with `2. Change chunk size` but I didn't use it :P There is already **UAF** in this binary and I think that's all you need to get a shell. 
 
-**TLDR: Create a fake chunk using UAF and change free@got with printf to leak an address in libc then change it again but this time with system("/bin/sh")**
+**TLDR: Create a fake chunk using UAF and overwrite free@got with printf to leak an address in libc then overwrite it again with system("/bin/sh")**
 
 Here's my approach (The order matters!!):
 
