@@ -74,7 +74,9 @@ Now that we have our leak in libc, we can calculate the offset to `libc base` an
 ![flaggg](https://github.com/user-attachments/assets/9999e3cf-a772-47a6-a610-841707b260e3)
 
 Getting a shell was quite painful so I just write out the flag. This was really fun even tho it wasn't intented solution! I think I learned a lot from this and I must include following writeups that inspired me for this solution:
+
 https://www.youtube.com/watch?v=qVLXHNqxpkE (by c0nrad)
+
 https://github.com/MarcoPellero/writeups/blob/main/backdoor/konsolidator/writeup.md
 
 ### Full Exploit
