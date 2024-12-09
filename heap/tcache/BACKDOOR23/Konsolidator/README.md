@@ -34,7 +34,7 @@ Mind that `chunk 0` is behind `chunk 1`.
 ```
 ![uaf1](https://github.com/user-attachments/assets/9078a95b-29db-4884-9abd-1af8c2f3f638)
 
-Now `chunk 0` is pointing to `AAAAAAAA` instead of pointing to the `next chunk` (chunk 1). Of course we don't want chunk 0 to point some random address. We can make it point to a **mallocable** address. 
+Now `chunk 0` is pointing to `AAAAAAAA` instead of pointing to the `next chunk` (chunk 1). Of course we don't want chunk 0 to point some random address. We can make it point to a **mallocable** address close to free@got. 
 
 ![gotoffree](https://github.com/user-attachments/assets/406238ec-be12-4aa0-a2b1-75f209ac626e)
 
