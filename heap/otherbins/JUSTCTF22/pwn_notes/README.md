@@ -71,7 +71,7 @@ With knowing that all we have to do is get that allocation into head of the tcac
 All good.
 
 ```
-8 - Malloc to start reading into the address __free_hook points to and overwrite it with "system"
+8 - Malloc to start reading into the address that __free_hook points to and overwrite it with "system"
 ```
 
 ![freessyt](https://github.com/user-attachments/assets/1e712020-c651-456a-a623-9c0323b5eb3d)
