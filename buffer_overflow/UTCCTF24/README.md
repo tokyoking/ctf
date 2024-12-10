@@ -68,7 +68,9 @@ Don't forget to create a "flag.txt" to test it locally.
 
 #![solved](https://github.com/user-attachments/assets/a4ad902d-973f-4cdb-a735-ffb27a8c42bf)
 
+<p align="center">
 <img src=https://i.pinimg.com/originals/85/fc/60/85fc60e92e35eee42856d66146034ef4.gif>
-<p>Good luck hacker.</p>
+<br>Good luck :)</br>
+</p>
 
 
