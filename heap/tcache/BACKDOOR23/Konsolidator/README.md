@@ -81,7 +81,7 @@ https://github.com/MarcoPellero/writeups/blob/main/backdoor/konsolidator/writeup
 
 ### Full Exploit
 
-```
+```python
 #!/usr/bin/env python3
 
 from pwn import *
