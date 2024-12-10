@@ -2,7 +2,7 @@
 
 ### Challenge
 ```
-TLDR: use UAF to leak an address in unsorted bin arena, get allacotions on fastbin and perform a fastbin dup attack to overwrite __free_hook with system("/bin/sh")
+TLDR: use UAF to leak an address in unsorted bin arena, get allacotions on fastbin and perform a fastbin dup attack to overwrite __free_hook pointer with system("/bin/sh")
 ```
 
 ![menu](https://github.com/user-attachments/assets/80649d50-4fe8-4ef2-b583-93bc2d9f9a58)
