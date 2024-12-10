@@ -83,7 +83,7 @@ All good.
 
 ![flag](https://github.com/user-attachments/assets/27bd8bc8-7ca4-4dcc-a8c9-bb07dc82c57f)
 
-Thanks for the author for this cool challenge! As always, following sources helped me a lot through this:
+Thanks to the author for this cool challenge! As always, following sources helped me a lot through this:
 
 nobodyisnobody's write up: https://github.com/nobodyisnobody/write-ups/blob/main/justCTF.2022/pwn/notes/working.exploit.py
 double free on fastbin: https://book.hacktricks.xyz/binary-exploitation/libc-heap/double-free
