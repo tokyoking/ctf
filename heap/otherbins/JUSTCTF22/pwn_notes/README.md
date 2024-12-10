@@ -92,8 +92,7 @@ double free on fastbin: https://book.hacktricks.xyz/binary-exploitation/libc-hea
 malloc hooks: https://0x434b.dev/overview-of-glibc-heap-exploitation-techniques/#malloc-hooks
 
 ### Full Exploit
-```
-#!/usr/bin/env python3
+```python
 
 from pwn import *
 
@@ -249,8 +248,3 @@ p.sendline("30")
 p.interactive()
 
 ```
-
-ruby
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
