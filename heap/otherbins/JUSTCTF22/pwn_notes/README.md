@@ -19,11 +19,7 @@ We'll do this by allocating 8 chunks in a way that when free'd, 7 of them will g
 
 How do we know that we need 7 allocations? From the source code of glibc 2.31:
 
-```
-/* This is another arbitrary limit, which tunables can change.  Each
-   tcache bin will hold at most this number of chunks.  */
-# define TCACHE_FILL_COUNT 7
-```
+![7](https://github.com/user-attachments/assets/30db5d21-8b56-40fa-b0c2-0dfb3b1c1d13)
 
 link: https://elixir.bootlin.com/glibc/glibc-2.31/source/malloc/malloc.c#L323
 
