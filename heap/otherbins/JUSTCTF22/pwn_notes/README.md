@@ -58,7 +58,9 @@ The reason we're doing this in fastbin instead of tcache is because we don't hav
 
 ![freehok](https://github.com/user-attachments/assets/73efc40b-5b9d-4e9c-9219-c6e9c7e6fa27)
 
-We have __free_hook in next pointer, all we have to do now is get that allocation into head of the tcache list. 
+__free_hook pointer is 0 by default but when set, the address that hook is pointing to is being called instead of default GLIBC free functionality. This is used for debugging and tracking. 
+
+With knowing that all we have to do is get that allocation into head of the tcache list so when we malloc we can read into free_hook's pointer and change it to an address in libc.
 
 ```
 7 - Malloc twice
@@ -69,7 +71,7 @@ We have __free_hook in next pointer, all we have to do now is get that allocatio
 All good.
 
 ```
-8 - Malloc to start reading into the address of __free_hook, overwrite it with "system"
+8 - Malloc to start reading into the address __free_hook points to and overwrite it with "system"
 ```
 
 ![freessyt](https://github.com/user-attachments/assets/1e712020-c651-456a-a623-9c0323b5eb3d)
