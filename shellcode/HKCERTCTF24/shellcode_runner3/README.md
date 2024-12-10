@@ -82,7 +82,7 @@ Before we leave, you can `gcc -nostdlib -static shellcode.s -o shellcode-elf` to
 
 <p align="center">
 <img src="https://i.pinimg.com/originals/5d/87/fa/5d87fac506f1a616f64038461e18dc42.gif"/>
-<b>"and we got a shell!"</b>
+<br>"and we got a shell!"</br>
 </p>
 
 
