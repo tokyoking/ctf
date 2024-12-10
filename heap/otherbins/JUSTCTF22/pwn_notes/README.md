@@ -91,6 +91,8 @@ double free on fastbin: https://book.hacktricks.xyz/binary-exploitation/libc-hea
 
 malloc hooks: https://0x434b.dev/overview-of-glibc-heap-exploitation-techniques/#malloc-hooks
 
+get the challenge from https://github.com/justcatthefish/justctf-2022/tree/main/challenges/pwn_notes
+
 ### Full Exploit
 ```python
 
