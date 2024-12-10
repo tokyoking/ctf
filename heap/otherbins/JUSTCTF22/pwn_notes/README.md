@@ -251,4 +251,4 @@ p.interactive()
 
 ```
 
-  <img src=https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVlMGRpYndzcDBxOWtycHFoOHB0bmN0M3IxaWVjN2x1Y3kwbmx6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GaePqH1aHE95KI0Vt7/giphy.webp>
+<img align='center' src=https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanVlMGRpYndzcDBxOWtycHFoOHB0bmN0M3IxaWVjN2x1Y3kwbmx6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GaePqH1aHE95KI0Vt7/giphy.webp>
