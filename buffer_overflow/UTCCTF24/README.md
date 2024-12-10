@@ -4,7 +4,7 @@
 
 ![](https://github.com/user-attachments/assets/a173472b-22d7-4ca0-893e-8201c1c39ac7)
 
-The challenge had 58 solves at the end of the ctf and it is worth 436 points!
+The challenge had 58 solves at the end of the ctf and it is worth 436 points! And this is my first write up :)
 
 ## Approach
 First we need to take a look at what is available for us with `checksec`. It'll give us a brief idea about the binary and what we are likely going to exploit.
