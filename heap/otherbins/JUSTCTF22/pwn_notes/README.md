@@ -7,7 +7,11 @@ TLDR: use UAF to leak an address in unsorted bin arena, get allacotions on fastb
 
 ![menu](https://github.com/user-attachments/assets/80649d50-4fe8-4ef2-b583-93bc2d9f9a58)
 
-Challenge menu.
+Challenge menu. 
+
+![notecheck](https://github.com/user-attachments/assets/a9b4becb-f758-4ac1-b05a-4aae3e0b8a43)
+
+Before we begin, there is a check for number of notes which is essentially how many times we can malloc. To get infitine number of allocations send a negative number when asked. 
 
 ### Checksec
 
