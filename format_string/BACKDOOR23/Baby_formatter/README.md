@@ -28,7 +28,7 @@ Anyway, `%p` `%u` `%d` and `%x` is filtered but we can still use `%s` and `%o` t
 ![realflag](https://github.com/user-attachments/assets/67de5c3e-b633-4388-89b3-e5b102a40dad)
 
 ### Full Exploit
-```
+```python
 #!/usr/bin/env python3
 
 from pwn import *
