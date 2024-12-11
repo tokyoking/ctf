@@ -62,7 +62,7 @@ Alright, what was the point of overwriting only a byte into canary again? Think 
 
 
 # Your turn!
- Now we know everything to solve this challenge, guess the canary and call win! You should first try this yourself and see if you can write an exploit and get the flag. If you don't push yourself now, when&how will you learn? I'll add the binary and my solution, if you have any questions/problem or just to say thanks, message me on discord (#tokyoking). 
+ Now we know everything to solve this challenge, guess the canary and call win! You should first try this yourself and see if you can write an exploit and get the flag. If you don't push yourself now, when&how will you learn? I'll add the binary and my solution, if you have any questions/problem or just to say thanks, message me on discord (.tokyoking). 
 
 Don't forget to create a "flag.txt" to test it locally.
 
