@@ -1,6 +1,6 @@
 ## Level: Medium
 
-  TLDR: create a chunk and overwrite the wilderness with a very large number due to overflow. This will overlap the target address and resulting in write-what-where, which you can use it to overwrite malloc_hook with system to get a shell.  
+    TLDR: create a chunk and overwrite the wilderness with a very large number due to overflow. This will overlap the target address and resulting in write-what-where, which you can use it to overwrite malloc_hook with system to get a shell.  
   
 ### Checksec
 
