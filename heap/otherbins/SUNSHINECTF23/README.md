@@ -13,7 +13,7 @@
 Very cool menu :D
 We have a heap and a libc leak (option 2).
 
-Also there is an overflow in `[3] Call an emergency meeting` so we can create a chunk then overwrite the wilderness (the top chunk's size) with a very large number (e.g. -1). This will make sure that malloc won't use `mmap` for any further allocations because it will think the top chunk has always enough space. And this will result in overlapping target address (write-what-where). 
+Also there is an overflow in option 3 so we can create a chunk then overwrite the wilderness (the top chunk's size) with a very large number (e.g. -1). This will make sure that malloc won't use `mmap` for any further allocations because it will think the top chunk has always enough space. And this will result in overlapping target address (write-what-where). 
 
 ### Approach 
 
