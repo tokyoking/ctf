@@ -16,7 +16,7 @@ https://github.com/shellphish/how2heap and https://0x434b.dev/overview-of-glibc-
 - Unsortedbin Attack (Applicable until: < 2.29)
 - House of Force (Applicable until: < 2.29)
 
-  **---> Requirements**
+  **|---> Requirements**
   ```
     1 - An overflow that allows to overwrite the size of the top chunk header (e.g. -1)
     2 - Be able to control the size of the heap allocation
