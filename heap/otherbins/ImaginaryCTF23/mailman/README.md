@@ -83,7 +83,7 @@ How to perform a House of Botcake attack?
 
 ### House of Botcake
 
-(Taken and edited from ret2school and surgdev's writeups with minor changes)
+(Taken from ret2school and surgdev's writeups and edited with minor changes)
 
 ```
 1 - Allocate 7 0x100 sized chunks to then fill the tcache (7 entries).
