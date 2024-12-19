@@ -21,4 +21,20 @@ Challenge menu.
 
 ![seccomp](https://github.com/user-attachments/assets/35868835-403b-4362-9a24-d88ccea336c0)
 
-Looks like instead of getting a shell we'll just read the flag with allowed ORW syscalls. 
+Looks like instead of getting a shell we'll just write out the flag with allowed ORW syscalls. 
+
+### Checksec
+
+```
+    RELRO:      Full RELRO
+    Stack:      Canary found
+    NX:         NX enabled
+    PIE:        PIE enabled
+    RUNPATH:    b'.'
+    SHSTK:      Enabled
+    IBT:        Enabled
+    Stripped:   No
+```
+
+
+
