@@ -3,7 +3,7 @@
 ### Challenge
 
 ```
-TLDR: leak a mangled heap ptr (UAF) and libc address from unsorted bin, then perform a House of Botcake attack to get read-what-where. Use this to get a stack leak via attacking File Structure. Perform House of Botcake again to ROP from saved_rip of fgets(). Use the gadgets in libc to write out the flag with ORW syscalls.
+TLDR: leak a mangled heap ptr (UAF) and libc address from unsorted bin, then perform a House of Botcake attack to get read-what-where. Use this to get a stack leak via attacking File Structure. Perform House of Botcake again to ROP from saved_rip of fgets(). Use the gadgets in libc to write out the flag to stdout with ORW syscalls.
 ```
 ```
 Welcome to the post office.
@@ -39,11 +39,11 @@ seccomp_loead(local_20);
     Stripped:   No
 ```
 
-So we can't overwrite got entries due to Full RELRO, can't use one_gadgets and other tricks like system("/bin/sh") due to seccomp restrictions. ORW syscall are allowed tho, and we can write out the flag if we can get a stack leak and ROP from there.. Also one more thing to consider, safe-linking is enabled but shouldn't be a big deal. 
+So we can't overwrite got entries due to Full RELRO, can't use one_gadgets and other tricks like system("/bin/sh") due to seccomp restrictions. However ORW syscall are allowed, we can write out the flag if we can get a stack leak and ROP from there.. Also one more thing to consider, safe-linking is enabled but shouldn't be a big deal. 
 
 ### Safe-Linking
 
-source: https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L349
+from glibc 2.35 source code:
 
 ```c
 /* Safe-Linking:
@@ -83,18 +83,18 @@ How to perform a House of Botcake attack?
 
 ### House of Botcake
 
-(Taken and edited from https://ret2school.github.io/post/mailman/,  https://surg.dev/ictf23/ and https://github.com/shellphish/how2heap/blob/master/glibc_2.35/house_of_botcake.c)
+(Taken and edited from ret2school and surgdev's writeups with minor changes)
 
 ```
-1-Allocate 7 0x100 sized chunks to then fill the tcache (7 entries).
-2-Allocate two more 0x100 sized chunks (a previous chunk and victim chunk) 
-3-Allocate a small “barrier” 0x10 sized chunk. (to prevent any further consolidation past our victim chunk)
-4-Fill the tcache by freeing the first 7 chunks.
-5-Free victum chunk, it ends up in the unsorted bin, since its too large for any other bin.
-6-Free previous chunk, because malloc now sees two large, adjacent chunks, it consoldates them and places a 0x221 size block into the unsorted bin. (malloc automatically allocs 16 bytes more than what we ask, and uses the last byte as a flag, so this is the result of 2 0x110 chunks)
-7-Request one more 0x100 sized chunk to let a single entry available in the tcache.
-8-Free victim chunk again, this bypasses the naive double free exception, and since our victim chunk has the info for a 0x110 byte block, it gets placed into the tcache (uh oh).
-9-That’s finished, to get a read what where we just need to request a 0x130 sized chunk (enough to overwrite the metadata of the next chunk). Thus we can hiijack the next fp of a that is currently referenced by the tcache by the location we wanna write to. And next time two 0x100 sized chunks are requested, first we'll get the victim chunk but then tcache will point to the target location.
+1 - Allocate 7 0x100 sized chunks to then fill the tcache (7 entries).
+2 - Allocate two more 0x100 sized chunks (a previous chunk and victim chunk) 
+3 - Allocate a small “barrier” 0x10 sized chunk. (to prevent any further consolidation past our victim chunk)
+4 - Fill the tcache by freeing the first 7 chunks.
+5 - Free victum chunk, it ends up in the unsorted bin, since its too large for any other bin.
+6 - Free previous chunk, because malloc now sees two large, adjacent chunks, it consoldates them and places a 0x221 size block into the unsorted bin. (malloc automatically allocs 16 bytes more than what we ask, and uses the last byte as a flag, so this is the result of 2 0x110 chunks)
+7 - Request one more 0x100 sized chunk to let a single entry available in the tcache.
+8 - Free victim chunk again, this bypasses the naive double free exception, and since our victim chunk has the info for a 0x110 byte block, it gets placed into the tcache (uh oh).
+9 - That’s finished, to get a read what where we just need to request a 0x130 sized chunk (enough to overwrite the metadata of the next chunk). Thus we can hiijack the next fp of a that is currently referenced by the tcache by the location we wanna write to. And next time two 0x100 sized chunks are requested, first we'll get the victim chunk but then tcache will point to the target location.
 ```
 
 We'll use this attack to leak a stack address by overwriting stdout's file structure with `environ`.
@@ -136,7 +136,12 @@ With this we'll get a stack leak and now we just need to ROP from somewhere.. ma
 ictf{i_guess_the_post_office_couldnt_hide_the_heapnote_underneath_912b123f}
 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
 ```
+### Helpful Resources
 
+glibc 2.35 source code: https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L349
+ret2school's writeup: https://ret2school.github.io/post/mailman/
+surgdev's writeup: https://surg.dev/ictf23/
+shellphish house of botcake: https://github.com/shellphish/how2heap/blob/master/glibc_2.35/house_of_botcake.c
 
 ### Full Exploit
 ```python
