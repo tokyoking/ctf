@@ -98,4 +98,32 @@ How to perform a House of Botcake attack?
 9-That’s finished, to get a read what where we just need to request a 0x130 sized chunk (enough to overwrite the metadata of the next chunk). Thus we can hiijack the next fp of a that is currently referenced by the tcache by the location we wanna write to. And next time two 0x100 sized chunks are requested, first we'll get the victim chunk but then tcache will point to the target location.
 ```
 
+We'll use this attack to leak a stack address by overwriting stdout's file structure with `environ`.
+
+### File Structure
+
+I'll cover this in detail when I started solving File Structure Exploits but for now this is all you need to know: 
+
+If we set `char* _IO_read_end` and `char* _IO_write_base` the beginning of a memory that we want to write out and we set `char* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
+
+```python
+struct _IO_FILE
+{
+  int _flags;		/* High-order word is _IO_MAGIC; rest is flags. */
+
+  /* The following pointers correspond to the C++ streambuf protocol. */
+  char *_IO_read_ptr;	/* Current read pointer */
+  char *_IO_read_end;	/* End of get area. */
+  char *_IO_read_base;	/* Start of putback+get area. */
+  char *_IO_write_base;	/* Start of put area. */
+  char *_IO_write_ptr;	/* Current put pointer. */
+  char *_IO_write_end;	/* End of put area. */
+  char *_IO_buf_base;	/* Start of reserve area. */
+  char *_IO_buf_end;	/* End of reserve area. */
+
+  /* The following fields are used to support backing up and undo. */
+  char *_IO_save_base; /* Pointer to start of non-current get area. */
+  char *_IO_backup_base;  /* Pointer to first valid character of backup area */
+  char *_IO_save_end; /* Pointer to end of non-current get area. */
+```
 
