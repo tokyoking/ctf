@@ -128,7 +128,7 @@ struct _IO_FILE
 
 Or if we set `char* _IO_read_end` and `char* _IO_write_base` the beginning of a memory that we want to write out and we set `chat* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
 
-With this we'll get a stack leak and now we just need to ROP from somewhere.. main() doesn't exit, so I targeted *fgets()* saved_rip and write out the flag.
+With this we'll get a stack leak and now we just need to ROP from somewhere.. main() doesn't exit, so I targeted *fgets()* saved_rip and write out the flag to sdtout.
 
 ```
 [*] Loaded 218 cached gadgets for './libc.so.6'
