@@ -21,7 +21,7 @@ Challenge menu.
 
 ![seccomp](https://github.com/user-attachments/assets/35868835-403b-4362-9a24-d88ccea336c0)
 
-Seccomp implementation. 
+Seccomp rules.  
 
 ### Checksec
 
@@ -36,7 +36,7 @@ Seccomp implementation.
     Stripped:   No
 ```
 
-We can't overwrite got entries due to Full RELRO, can't use one_gadgets and other tricks like system("/bin/sh") due to seccomp restrictions so probably we need to ROP with ORW. 
+So we can't overwrite got entries due to Full RELRO, can't use one_gadgets and other tricks like system("/bin/sh") due to seccomp restrictions. ORW syscall are allowed tho, and we can write out the flag if we can get a stack leak and ROP from there..
 
 
 
