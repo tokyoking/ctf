@@ -87,17 +87,16 @@ How to perform a House of Botcake attack?
 (Edited from https://ret2school.github.io/post/mailman/,  https://surg.dev/ictf23/ and https://github.com/shellphish/how2heap/blob/master/glibc_2.35/house_of_botcake.c)
 
 The house of botcake is very easy to understand, it is useful when you can trigger some double free bug. It is basically:
-
-   1 -  Allocate 7 0x100 sized chunks to then fill the tcache (7 entries).
-   2 - Allocate two more 0x100 sized chunks (a previous chunk and victim chunk) 
-    Allocate a small “barrier” 0x10 sized chunk. (to prevent any further consolidation past our victim chunk)
-    Fill the tcache by freeing the first 7 chunks.
-    free victum chunk, it ends up in the unsorted bin, since its too large for any other bin.
-    free previous chunk, because malloc now sees two large, adjacent chunks, it consoldates them and places a 0x221 size block into the unsorted bin. (malloc automatically allocs 16 bytes more than what we ask, and uses the last byte as a flag, so this is the result of 2 0x110 chunks)
-    Request one more 0x100 sized chunk to let a single entry available in the tcache.
-    free victim chunk again, this bypasses the naive double free exception, and since our victim chunk has the info for a 0x110 byte block, it gets placed into the tcache (uh oh).
-    That’s finished, to get a read what where we just need to request a 0x130 sized chunk (enough to overwrite the metadata of the next chunk). Thus we can hiijack the next fp of a that is currently referenced by the tcache by the location we wanna write to. And next time two 0x100 sized chunks are requested, first we'll get the victim chunk but then tcache will point to the target location.
-
-
+```
+1-Allocate 7 0x100 sized chunks to then fill the tcache (7 entries).
+2-Allocate two more 0x100 sized chunks (a previous chunk and victim chunk) 
+3-Allocate a small “barrier” 0x10 sized chunk. (to prevent any further consolidation past our victim chunk)
+4-Fill the tcache by freeing the first 7 chunks.
+5-Free victum chunk, it ends up in the unsorted bin, since its too large for any other bin.
+6-Free previous chunk, because malloc now sees two large, adjacent chunks, it consoldates them and places a 0x221 size block into the unsorted bin. (malloc automatically allocs 16 bytes more than what we ask, and uses the last byte as a flag, so this is the result of 2 0x110 chunks)
+7-Request one more 0x100 sized chunk to let a single entry available in the tcache.
+8-Free victim chunk again, this bypasses the naive double free exception, and since our victim chunk has the info for a 0x110 byte block, it gets placed into the tcache (uh oh).
+9-That’s finished, to get a read what where we just need to request a 0x130 sized chunk (enough to overwrite the metadata of the next chunk). Thus we can hiijack the next fp of a that is currently referenced by the tcache by the location we wanna write to. And next time two 0x100 sized chunks are requested, first we'll get the victim chunk but then tcache will point to the target location.
+```
 
 
