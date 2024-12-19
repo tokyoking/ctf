@@ -57,8 +57,14 @@ source: https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L349
 #define REVEAL_PTR(ptr)  PROTECT_PTR (&ptr, ptr)
 ```
 
-Basically tcache and fastbins next pointers are mangled to prevent classic heap attacks.  
+Basically tcache and fastbins next pointers are mangled to prevent classic heap attacks. So when we leak an address via UAF, it's going to be mangled in glibc 2.35 and higher. This just makes it harder to exploit, but its still exploitable. We can demangle the mangled pointer with this simple demangle function:
 
+```
+def demangle(ptr):
+    mid = ptr ^ (ptr >> 12)
+    return mid ^ (mid >> 24)
+```
+If you want to learn how this works, I'd recommend watching pwncollege's safe-linking video in dynamic allocation exploit module. 
 
 
 
