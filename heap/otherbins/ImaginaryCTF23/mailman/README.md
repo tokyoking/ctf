@@ -38,9 +38,9 @@ seccomp_loead(local_20);
     IBT:        Enabled
     Stripped:   No
 ```
-
+<p align="center">
 <img src=https://i.gifer.com/8lTm.gif>
-
+</p>
 So we can't overwrite got entries due to Full RELRO, can't use one_gadgets and other tricks like system("/bin/sh") due to seccomp restrictions. However ORW syscall are allowed, we can write out the flag if we can get a stack leak and ROP from there.. Also one more thing to consider, safe-linking is enabled but shouldn't be a big deal. 
 
 ### Safe-Linking
@@ -127,9 +127,7 @@ struct _IO_FILE
   char *_IO_backup_base;  /* Pointer to first valid character of backup area */
   char *_IO_save_end; /* Pointer to end of non-current get area. */
 ```
-<p align="center">
-<img src=![filest](https://github.com/user-attachments/assets/949e983f-b669-4c17-8937-27a0a25465b1)>
-</p>
+![filest](https://github.com/user-attachments/assets/949e983f-b669-4c17-8937-27a0a25465b1)
 
 Or if we set `char* _IO_read_end` and `char* _IO_write_base` the beginning of a memory that we want to write out and we set `chat* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
 
