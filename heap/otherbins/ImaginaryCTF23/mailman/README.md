@@ -125,6 +125,6 @@ struct _IO_FILE
   char *_IO_save_end; /* Pointer to end of non-current get area. */
 ```
 
+![filest](https://github.com/user-attachments/assets/949e983f-b669-4c17-8937-27a0a25465b1)
 
-If we set `char* _IO_read_end` and `char* _IO_write_base` the beginning of a memory that we want to write out and we set `char* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
-
+Or if we set `char* _IO_read_end` and `char* _IO_write_bas`e the beginning of a memory that we want to write out and we set `chat* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
