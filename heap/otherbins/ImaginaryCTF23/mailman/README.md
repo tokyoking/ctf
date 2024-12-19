@@ -14,7 +14,7 @@ Enter your choice below:
 >
 ```
 
-Challenge menu. Also this challenge has seccomp rules. 
+Classic heap challenge menu but this challenge has seccomp rules. 
 
 ```c
 local_20 = seccomp_init(0);
