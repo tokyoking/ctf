@@ -27,8 +27,6 @@ seccomp_rule_add(local_20, 0x7fff0000,0x3c,0);
 seccomp_loead(local_20);
 ```
 
-Seccomp rules.  
-
 ## Approach
 
 ```
