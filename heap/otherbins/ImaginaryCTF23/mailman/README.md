@@ -88,8 +88,8 @@ How to perform a House of Botcake attack?
 
 The house of botcake is very easy to understand, it is useful when you can trigger some double free bug. It is basically:
 
-    Allocate 7 0x100 sized chunks to then fill the tcache (7 entries).
-    Allocate two more 0x100 sized chunks (a previous chunk and victim chunk) 
+   1 -  Allocate 7 0x100 sized chunks to then fill the tcache (7 entries).
+   2 - Allocate two more 0x100 sized chunks (a previous chunk and victim chunk) 
     Allocate a small “barrier” 0x10 sized chunk. (to prevent any further consolidation past our victim chunk)
     Fill the tcache by freeing the first 7 chunks.
     free victum chunk, it ends up in the unsorted bin, since its too large for any other bin.
