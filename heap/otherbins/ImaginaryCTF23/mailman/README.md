@@ -83,6 +83,8 @@ How to perform a House of Botcake attack?
 
 ### House of Botcake
 
+Bypasses double free restriction on tcache. Thus we can simply double free the victim and do a tcache poisoning.  
+
 (Taken from ret2school and surgdev's writeups and edited with minor changes)
 
 ```
