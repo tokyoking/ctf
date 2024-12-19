@@ -63,7 +63,7 @@ source: https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L349
 
 Basically tcache and fastbins next pointers are mangled to prevent classic heap attacks. So when we leak an address via UAF, it's going to be mangled in glibc 2.35 and higher. This just makes it harder to exploit, but its still exploitable. We can demangle the mangled pointer with this simple demangle function:
 
-```
+```python
 def demangle(ptr):
     mid = ptr ^ (ptr >> 12)
     return mid ^ (mid >> 24)
