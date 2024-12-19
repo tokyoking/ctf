@@ -17,7 +17,7 @@ Enter your choice below:
 
 Challenge menu. Also this challenge has seccomp rules. 
 
-```
+```c
 local_20 = seccomp_init(0);
 seccomp_rule_add(local_20, 0x7fff0000,2,0);
 seccomp_rule_add(local_20, 0x7fff0000,0,0);
@@ -46,7 +46,7 @@ So we can't overwrite got entries due to Full RELRO, can't use one_gadgets and o
 
 source: https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L349
 
-```
+```c
 /* Safe-Linking:
    Use randomness from ASLR (mmap_base) to protect single-linked lists
    of Fast-Bins and TCache.  That is, mask the "next" pointers of the
