@@ -40,6 +40,29 @@ So we can't overwrite got entries due to Full RELRO, can't use one_gadgets and o
 
 ### Safe-Linking
 
+source: https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L349
+
+```
+/* Safe-Linking:
+   Use randomness from ASLR (mmap_base) to protect single-linked lists
+   of Fast-Bins and TCache.  That is, mask the "next" pointers of the
+   lists' chunks, and also perform allocation alignment checks on them.
+   This mechanism reduces the risk of pointer hijacking, as was done with
+   Safe-Unlinking in the double-linked lists of Small-Bins.
+   It assumes a minimum page size of 4096 bytes (12 bits).  Systems with
+   larger pages provide less entropy, although the pointer mangling
+   still works.  */
+#define PROTECT_PTR(pos, ptr) \
+  ((__typeof (ptr)) ((((size_t) pos) >> 12) ^ ((size_t) ptr)))
+#define REVEAL_PTR(ptr)  PROTECT_PTR (&ptr, ptr)
+```
+
+Basically tcache and fastbins next pointers are mangled to prevent classic heap attacks.  
+
+
+
+
+
 
 
 
