@@ -73,7 +73,7 @@ Okay so our approach should be like this:
 2 - Leak the libc address in unsorted bin
 3 - Perform House of Botcake attack to get read-what-where
 4 - Leak environ's stack address with changing stdout file struct via House of Botcake
-5 - ROP from saved rip of something 
+5 - ROP from saved rip of something using House of Botcake again
 ```
 
 
