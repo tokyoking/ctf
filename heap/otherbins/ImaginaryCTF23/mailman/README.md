@@ -84,9 +84,8 @@ How to perform a House of Botcake attack?
 
 ### House of Botcake
 
-(Edited from https://ret2school.github.io/post/mailman/,  https://surg.dev/ictf23/ and https://github.com/shellphish/how2heap/blob/master/glibc_2.35/house_of_botcake.c)
+(Taken and edited from https://ret2school.github.io/post/mailman/,  https://surg.dev/ictf23/ and https://github.com/shellphish/how2heap/blob/master/glibc_2.35/house_of_botcake.c)
 
-The house of botcake is very easy to understand, it is useful when you can trigger some double free bug. It is basically:
 ```
 1-Allocate 7 0x100 sized chunks to then fill the tcache (7 entries).
 2-Allocate two more 0x100 sized chunks (a previous chunk and victim chunk) 
