@@ -104,8 +104,6 @@ We'll use this attack to leak a stack address by overwriting stdout's file struc
 
 I'll cover this in detail when I started solving File Structure Exploits but for now this is all you need to know: 
 
-If we set `char* _IO_read_end` and `char* _IO_write_base` the beginning of a memory that we want to write out and we set `char* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
-
 ```python
 struct _IO_FILE
 {
@@ -126,4 +124,7 @@ struct _IO_FILE
   char *_IO_backup_base;  /* Pointer to first valid character of backup area */
   char *_IO_save_end; /* Pointer to end of non-current get area. */
 ```
+
+
+If we set `char* _IO_read_end` and `char* _IO_write_base` the beginning of a memory that we want to write out and we set `char* _IO_write_ptr` to the end of that value and everything else to `NULL`, we will be able to leak out a value of our choosing.
 
