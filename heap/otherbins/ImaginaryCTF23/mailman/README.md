@@ -36,7 +36,7 @@ Looks like instead of getting a shell we'll just write out the flag with allowed
     Stripped:   No
 ```
 
-We can't overwrite got entries due to Full RELRO, so we'll need a stack leak to do ROP.
+We can't overwrite got entries due to Full RELRO, so probably we need to ROP. 
 
 
 
