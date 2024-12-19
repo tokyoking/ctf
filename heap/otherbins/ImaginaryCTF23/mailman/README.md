@@ -15,11 +15,17 @@ Enter your choice below:
 >
 ```
 
-Challenge menu.
+Challenge menu. Also this challenge has seccomp rules. 
 
-`Write a letter` asks idx, letter size and content and allocates a chunk based on our input. `Send a letter` frees the chunk and `Read a letter` reads chunk's content.
-
-![seccomp](https://github.com/user-attachments/assets/35868835-403b-4362-9a24-d88ccea336c0)
+```
+local_20 = seccomp_init(0);
+seccomp_rule_add(local_20, 0x7fff0000,2,0);
+seccomp_rule_add(local_20, 0x7fff0000,0,0);
+seccomp_rule_add(local_20, 0x7fff0000,1,0);
+seccomp_rule_add(local_20, 0x7fff0000,5,0);
+seccomp_rule_add(local_20, 0x7fff0000,0x3c,0);
+seccomp_loead(local_20);
+```
 
 Seccomp rules.  
 
