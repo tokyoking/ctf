@@ -99,7 +99,7 @@ Bypasses double free restriction on tcache. Thus we can simply double free the v
 9 - That’s finished, to get a read what where we just need to request a 0x130 sized chunk (enough to overwrite the metadata of the next chunk). Thus we can hiijack the next fp of a that is currently referenced by the tcache by the location we wanna write to. And next time two 0x100 sized chunks are requested, first we'll get the victim chunk but then tcache will point to the target location.
 ```
 
-We'll use this attack to leak a stack address by overwriting stdout's file structure with `environ`.
+We'll perform this attack with FSOP on stdout to leak a stack address.
 
 ### File Structure
 
