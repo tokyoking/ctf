@@ -137,10 +137,12 @@ ictf{i_guess_the_post_office_couldnt_hide_the_heapnote_underneath_912b123f}
 \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
 ```
 ### Helpful Resources
-
 glibc 2.35 source code: https://elixir.bootlin.com/glibc/glibc-2.35/source/malloc/malloc.c#L349
+
 ret2school's writeup: https://ret2school.github.io/post/mailman/
+
 surgdev's writeup: https://surg.dev/ictf23/
+
 shellphish house of botcake: https://github.com/shellphish/how2heap/blob/master/glibc_2.35/house_of_botcake.c
 
 ### Full Exploit
