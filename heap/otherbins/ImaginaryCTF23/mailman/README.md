@@ -66,6 +66,15 @@ def demangle(ptr):
 ```
 If you want to learn how this works, I'd recommend watching pwncollege's safe-linking video in dynamic allocation exploit module. 
 
+Okay so our approach should be like this:
+
+```
+1 - Leak mangled next pointer of a chunk via UAF and demangle it to get the demangled next pointer
+2 - Leak the libc address in unsorted bin
+3 - Perform House of Botcake attack to get read-what-where
+4 - Leak environ's stack address with changing stdout file struct via House of Botcake
+5 - ROP from saved rip of something 
+```
 
 
 
