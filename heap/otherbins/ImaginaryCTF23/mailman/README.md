@@ -385,9 +385,3 @@ malloc_letter(3, 256, payload + rop.chain())
 
 p.interactive()
 ```
-<p align="center">
-<img src=https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjV3MWtzMWtqdWV2d2s3d2I0ZXpsZXluOWw5dTNyMDJwamR4ZW92cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NkPdHmESJsRlRqsTqS/giphy.webp>
-</p>
-<p align="center">
-<i> See you :p</i> 
-</p>
