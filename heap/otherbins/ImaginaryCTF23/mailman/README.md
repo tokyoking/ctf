@@ -36,7 +36,7 @@ Looks like instead of getting a shell we'll just write out the flag with allowed
     Stripped:   No
 ```
 
-We can't overwrite got entries due to Full RELRO and can't use one_gagdets as well with other restricted syscalls so probably we need to ROP with ORW. 
+We can't overwrite got entries due to Full RELRO, can't use one_gadgets and other tricks like system("/bin/sh") due to seccomp restrictions so probably we need to ROP with ORW. 
 
 
 
