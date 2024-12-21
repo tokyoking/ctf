@@ -20,6 +20,13 @@ If you corrupt the key and free a chunk twice, next two mallocs will return the 
 ![doublefree](https://github.com/user-attachments/assets/8c93b858-6d0b-4a2a-bd4e-6f2feb1d2558)
 
 
+from: https://faraz.faith/2019-10-12-picoctf-2019-heap-challs/#zero_to_hero
+
+    Free the chunk, then use a UAF to overwrite chunk->key to any other value, and we will be able to free it again.
+
+    Free the chunk into one tcache bin, then change its size. You can immediately free it again and put it into a different tcache bin. You can then get the chunk back from the old tcache bin (prior to its size change) and immediately free it again due to the e->key field being nulled out. Now the new (second) tcache bin will have a double freed chunk in it.
+
+
 ### tcache poisoning
 - on allocation `key` is cleared but `next` is not cleared. 
 corrupt the next pointer of the last thing that was free()d.
